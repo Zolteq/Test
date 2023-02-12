@@ -23,8 +23,8 @@ a:visited {
   text-decoration: none;
 }
 
-a:hover {
-  text-decoration: none;
+.rickroll a:hover {
+  color: magenta;
 }
 
 a:active {
