@@ -23,7 +23,7 @@ a:visited {
   text-decoration: none;
 }
 
-.rickroll a:hover {
+a:hover.rickroll {
   color: magenta;
 }
 
