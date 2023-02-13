@@ -1,6 +1,5 @@
 .nav {
   display: inline-flex;
-  top: 200px;
   gap: 2rem;
 }
 
@@ -9,6 +8,5 @@ header {
   align-items: center;
   display: inline-block;
   justify-content: space-around;
-  top: 20px;
   width: 100%;
 }
