@@ -31,9 +31,9 @@ a:active {
   text-decoration: none;
 }
 
-.container ul li {
-  color: #fff;
-  display: inline-block;
+.nav .container {
+  color: #000000;
+  display: inline;
   height: 80px;
   line-height: 80px;
   list-style: none;
