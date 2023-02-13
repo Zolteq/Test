@@ -47,3 +47,8 @@ a:active {
   transition: background .5s:
   
 }
+
+li {
+color: magenta;
+
+}
