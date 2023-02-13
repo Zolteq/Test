@@ -1,3 +1,4 @@
-li {
-color: magenta;
+.nav .container {
+  display: inline;
 }
+
