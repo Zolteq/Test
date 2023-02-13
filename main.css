@@ -1,10 +1,10 @@
 .nav {
-  display: inline-flex;
+  display: inline;
 }
 
 header {
   font-weight: bold;
-  display: inline-flex;
+  display: inline;
   justify-content: space-around;
   width: 100%;
 }
