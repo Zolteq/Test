@@ -1,4 +1,4 @@
-header {
+.header {
     vertical-align:top
-    display: inline-flex;
+    display: inline-table;
 }
