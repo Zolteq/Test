@@ -2,10 +2,9 @@
   display: inline-flex;
 }
 
-.header {
-  font-size: 5rem;
+header {
   font-weight: bold;
-  display: inline;
+  display: inline-flex;
   justify-content: space-around;
-  text-shadow: 1px 1px 1px orange;
+  width: 100%;
 }
