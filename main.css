@@ -8,13 +8,13 @@ nav {
     list-style: none;
     width: 100%;
     border: 1px solid red;
-     text-align: right: e;
+     text-align: right;
  }
 
 nav ul li {
   display: inline-block;
   font-size: 60%;
   margin-right: 0;
-  background: black;
+  border: 1px solid yellow;
  
  }  
