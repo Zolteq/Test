@@ -1,8 +1,6 @@
 .nav {
   display: flex;
-  justify-content: end;
-  list-style: none;
-  top: 2px;
+  top: 200px;
   gap: 2rem;
 }
 
