@@ -30,3 +30,20 @@ a:hover.rickroll {
 a:active {
   text-decoration: none;
 }
+
+.nav ul li {
+  color: #fff;
+  display: inline-block;
+  height: 80px;
+  line-height: 80px;
+  list-style: none;
+  padding: 0 10px;
+  transition: background .5s;
+}
+
+.nav ul li:hover {
+  background: #117bff;
+  cursor: pointer;
+  transition: background .5s:
+  
+}
