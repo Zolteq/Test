@@ -1,20 +1,67 @@
-nav {
-   height: 70px;
-   line-height: 70px;
-   border: 1px  solid green;
- }
-
- nav ul {
-    list-style: none;
-    width: 100%;
-    border: 1px solid red;
-     text-align: right;
- }
-
-nav ul li {
-  display: inline-block;
-  font-size: 60%;
-  margin-right: 0;
-  border: 1px solid yellow;
- 
- }  
+          * {
+            margin: 0px;
+            padding: 0px;
+            background-color: rgb(12, 9, 9);
+        }
+         header img {
+            display: block;
+            height: 84px;
+            cursor: pointer;
+            order: 3;
+            margin-left: auto;
+        }
+       li,
+        a,
+        button {
+            font-family: "Montserrat", sans-serif;
+            font-weight: 800;
+            font-size: 16px;
+            color: whitesmoke;
+            text-decoration: none;
+        }
+        
+        header {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 30px 10%;
+            order: 1;
+        }
+        
+        .navigate_links {
+            list-style: none;
+        }
+        .navigate_links li {
+            display: inline-block;
+            padding: 0px 20px;
+        }
+          .navigate_links li a {
+            transition: all 0.3s ease-in-out 0s;
+        }
+        
+          button {
+            margin-left: 20px;
+            padding: 9px 12px;
+            border-radius: 15px;
+            background-color: rgb(89, 61, 248);
+            color: rgb(243, 236, 236);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out 0s;
+        }
+        button:hover {
+            background-color: rgb(219, 221, 81);
+            color: black;
+        }
+        
+        .navigate_links li a:hover {
+            color: greenyellow;
+            border: 2px solid blue;
+            box-shadow: 3px 3px 3px red, 3px 3px 3px blue;
+            border-radius: 4px;
+            margin: 10px;
+            padding: 12px;
+        }
+        .navigate_links li:nth-child(1) {
+            padding: 0px 20px 0px 0px;
+        }
