@@ -1,4 +1,18 @@
-.header {
-    vertical-align:top
-    display: inline-table;
-}
+ nav {
+   height: 70px;
+   line-height: 70px;
+   border: 1px  solid green;
+ }
+
+ nav ul {
+    list-style: none;
+    width: 100%;
+    border: 1px solid red;
+ }
+
+nav ul li {
+  display: inline-block;
+  font-size: 60%;
+  margin-right: 0;
+  border : 1px solid yellow;
+ }  
