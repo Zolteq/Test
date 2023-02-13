@@ -1,5 +1,5 @@
 .nav {
-  display: inline;
+  display: inline-flex;
 }
 
 .header {
