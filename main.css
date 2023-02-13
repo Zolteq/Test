@@ -1,10 +1,11 @@
-.nav ul li {
+.nav {
   display: inline;
 }
 
-.container header span {
+.header {
   font-size: 5rem;
   font-weight: bold;
   display: inline;
+  justify-content: space-around;
   text-shadow: 1px 1px 1px orange;
 }
