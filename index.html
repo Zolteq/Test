@@ -35,19 +35,11 @@
         .dropdown span {
             display: flex;
             align-items: center;
+            justify-content: center;
             overflow: hidden;
             padding-right: 30px; /* space for the down arrow */
             white-space: nowrap;
             font-size: 20px;
-        }
-
-        .dropdown:before {
-            content: '';
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 16px;
         }
 
         .dropdown-content {
@@ -131,7 +123,7 @@
     <h1>Welcome to our calculator selector</h1>
     <div class="dropdown" id="dropdown">
         <span id="dropdown-label">
-            Select a calculator &#9662;
+            Select a calculator
         </span>
         <div class="dropdown-content" id="dropdown-content">
             <a href="#" id="fertilizer-option"><img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="48" height="48"> Fertilizer Calculator</a>
@@ -157,7 +149,7 @@
             e.preventDefault();
             e.stopPropagation();
             document.querySelector('.calculator-input').style.display = 'block';
-            document.getElementById('dropdown-label').innerHTML = '<img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="48" height="48"> Fertilizer Calculator &#9662;';
+            document.getElementById('dropdown-label').innerHTML = 'Fertilizer Calculator';
             dropdownContent.style.display = 'none';
         }
 
