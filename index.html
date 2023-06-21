@@ -120,7 +120,7 @@
         <input type="number" id="fertilizer-input" placeholder="Enter amount of fertilizer">
         <div class="calculator-result" id="calculator-result"></div>
     </div>
-    
+
     <script>
         var dropdown = document.getElementById('dropdown');
         var dropdownContent = document.getElementById('dropdown-content');
@@ -134,14 +134,14 @@
             e.preventDefault();
             e.stopPropagation();
             document.querySelector('.calculator-input').style.display = 'block';
-            document.getElementById('dropdown-label').innerHTML = '<img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="20" height="20"> Fertilizer Calculator';
+            document.getElementById('dropdown-label').innerHTML = '<img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="20" height="20"> Fertilizer Calculator &darr;';
             dropdownContent.style.display = 'none';
         }
 
         document.getElementById('recycle-option').onclick = function(e) {
             e.preventDefault();
             e.stopPropagation();
-            document.getElementById('dropdown-label').innerHTML = '<img src="icon/Scrap.png" alt="Scrap Icon" width="20" height="20"> Recycle Calculator (Under Development)';
+            document.getElementById('dropdown-label').innerHTML = '<img src="icon/Scrap.png" alt="Scrap Icon" width="20" height="20"> Recycle Calculator (Under Development) &darr;';
             dropdownContent.style.display = 'none';
         }
 
