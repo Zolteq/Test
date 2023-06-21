@@ -139,6 +139,7 @@
     <script>
         var dropdown = document.getElementById('dropdown');
         var dropdownContent = document.getElementById('dropdown-content');
+        var selectedItem = document.getElementById('dropdown-label');
 
         dropdown.onclick = function(e) {
             e.stopPropagation();
@@ -149,7 +150,7 @@
             e.preventDefault();
             e.stopPropagation();
             document.querySelector('.calculator-input').style.display = 'block';
-            document.getElementById('dropdown-label').innerHTML = 'Fertilizer Calculator';
+            selectedItem.innerHTML = '<img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="48" height="48"><span>Fertilizer Calculator</span>';
             dropdownContent.style.display = 'none';
         }
 
