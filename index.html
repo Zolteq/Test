@@ -92,6 +92,7 @@
             display: none;
             margin-top: 20px;
             width: 200px;
+            text-align: center;
         }
 
         .calculator-input input {
@@ -102,6 +103,16 @@
 
         .calculator-result {
             margin-top: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .calculator-result img {
+            margin-right: 5px;
+        }
+
+        .calculator-result-text {
+            font-weight: bold;
         }
     </style>
 </head>
@@ -149,7 +160,8 @@
         document.getElementById('fertilizer-input').oninput = function() {
             var fertilizerAmount = this.value;
             var scrapAmount = Math.floor(fertilizerAmount / 2) * 3;
-            document.getElementById('calculator-result').innerText = `Equivalent scrap: ${scrapAmount}`;
+            var resultText = '<img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="20" height="20"> Equivalent scrap: ' + scrapAmount;
+            document.getElementById('calculator-result').innerHTML = '<span class="calculator-result-text">' + resultText + '</span>';
         }
 
         window.onclick = function(e) {
