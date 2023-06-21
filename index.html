@@ -2,14 +2,16 @@
 <html>
 <head>
     <title>My Recycling Website</title>
+    <link rel="stylesheet" type="text/css" href="select2.min.css">
     <link rel="stylesheet" type="text/css" href="main.css">
+    <script src="select2.min.js"></script>
     <script>
         function calculateScrap() {
             var numFertilizer = parseInt(document.getElementById("fertilizerInput").value);
             var numScrap = Math.floor(numFertilizer / 2) * 3;
             document.getElementById("result").innerHTML = "You will receive " + numScrap + " units of scrap.";
         }
-        
+
         function showCalculator() {
             var selectedOption = document.getElementById("calculatorSelect").value;
             var calculatorDivs = document.getElementsByClassName("calculator");
@@ -25,15 +27,11 @@
         <h1>Welcome to My Recycling Website</h1>
 
         <h2>Choose an option:</h2>
-        <div class="custom-select">
-            <select id="calculatorSelect" onchange="showCalculator()">
-                <option value="" disabled selected>Select an option</option>
-                <option value="recycleCalculator" class="recycleCalculator">Recycle Calculator</option>
-                <option value="fertilizerCalculator" class="fertilizerCalculator">Fertilizer Calculator</option>
-            </select>
-            <img src="icon/Scrap.png" alt="Recycle Logo" class="logo recycleLogo" id="recycleLogo"> <!-- Recycle logo -->
-            <img src="icon/Fertilizer.png" alt="Fertilizer Logo" class="logo fertilizerLogo" id="fertilizerLogo"> <!-- Fertilizer logo -->
-        </div>
+        <select id="calculatorSelect" onchange="showCalculator()">
+            <option value="" disabled selected>Select an option</option>
+            <option value="recycleCalculator" data-icon="icon/Scrap.png">Recycle Calculator</option>
+            <option value="fertilizerCalculator" data-icon="icon/Fertilizer.png">Fertilizer Calculator</option>
+        </select>
 
         <div id="recycleCalculator" class="calculator" style="display: none;">
             <h3>Recycle Calculator</h3>
@@ -47,5 +45,23 @@
             <p id="result"></p>
         </div>
     </div>
+    
+    <script>
+        $(document).ready(function() {
+            $('#calculatorSelect').select2({
+                templateResult: formatOption,
+                templateSelection: formatOption
+            });
+        });
+
+        function formatOption(option) {
+            if (!option.id) {
+                return option.text;
+            }
+
+            var icon = '<img class="option-icon" src="' + $(option.element).data('icon') + '"> ';
+            return icon + option.text;
+        }
+    </script>
 </body>
 </html>
