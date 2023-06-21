@@ -39,6 +39,7 @@
             padding-right: 30px; /* space for the down arrow */
             white-space: nowrap;
             font-size: 20px;
+            transition: width 0.3s ease-in-out;
         }
 
         .dropdown:before {
@@ -161,6 +162,7 @@
         var dropdown = document.getElementById('dropdown');
         var dropdownContent = document.getElementById('dropdown-content');
         var selectedItem = document.getElementById('dropdown-label');
+        var selectedOption = document.getElementById('selected-option');
 
         dropdown.onclick = function(e) {
             e.stopPropagation();
@@ -172,6 +174,7 @@
             e.stopPropagation();
             document.querySelector('.calculator-input').style.display = 'block';
             selectedItem.innerHTML = '<span class="selected-item"><img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="48" height="48"></span> Fertilizer Calculator &#9662;';
+            selectedOption.innerHTML = 'Fertilizer Calculator';
             dropdownContent.style.display = 'none';
         }
 
@@ -194,6 +197,14 @@
                 dropdownContent.style.display = 'none';
             }
         }
+
+        function updateDropdownLabelWidth() {
+            var selectedLabelWidth = selectedItem.offsetWidth;
+            selectedOption.style.width = selectedLabelWidth + 'px';
+        }
+
+        window.addEventListener('resize', updateDropdownLabelWidth);
+        updateDropdownLabelWidth();
     </script>
 </body>
 </html>
