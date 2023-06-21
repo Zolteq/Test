@@ -28,7 +28,7 @@
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             cursor: pointer;
             text-align: left;
-            min-width: 200px;
+            min-width: 250px;
         }
 
         .dropdown span {
@@ -37,6 +37,7 @@
             overflow: hidden;
             padding-right: 20px; /* space for the down arrow */
             white-space: nowrap;
+            font-size: 16px;
         }
 
         .dropdown:before {
@@ -69,10 +70,13 @@
             align-items: center;
             border-bottom: 1px solid #ddd;
             white-space: nowrap;
+            font-size: 14px;
         }
 
         .dropdown-content a img {
             margin-right: 10px;
+            width: 24px;
+            height: 24px;
         }
 
         .dropdown-content a:last-child {
@@ -91,13 +95,13 @@
         .calculator-input {
             display: none;
             margin-top: 20px;
-            width: 200px;
+            width: 250px;
             text-align: center;
         }
 
         .calculator-input input {
             width: 100%;
-            padding: 5px;
+            padding: 8px;
             box-sizing: border-box;
         }
 
@@ -105,11 +109,14 @@
             margin-top: 10px;
             display: flex;
             align-items: center;
+            font-size: 16px;
         }
 
         .calculator-result img {
             margin-right: 5px;
             vertical-align: middle;
+            width: 24px;
+            height: 24px;
         }
 
         .calculator-result-text {
@@ -126,8 +133,8 @@
             Select a calculator &#9662;
         </span>
         <div class="dropdown-content" id="dropdown-content">
-            <a href="#" id="fertilizer-option"><img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="20" height="20"> Fertilizer Calculator</a>
-            <a href="#" id="recycle-option"><img src="icon/Scrap.png" alt="Scrap Icon" width="20" height="20"> Recycle Calculator (Under Development)</a>
+            <a href="#" id="fertilizer-option"><img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="24" height="24"> Fertilizer Calculator</a>
+            <a href="#" id="recycle-option"><img src="icon/Scrap.png" alt="Scrap Icon" width="24" height="24"> Recycle Calculator (Under Development)</a>
         </div>
     </div>
 
@@ -149,7 +156,7 @@
             e.preventDefault();
             e.stopPropagation();
             document.querySelector('.calculator-input').style.display = 'block';
-            document.getElementById('dropdown-label').innerHTML = '<img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="20" height="20"> Fertilizer Calculator &#9662;';
+            document.getElementById('dropdown-label').innerHTML = '<img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="24" height="24"> Fertilizer Calculator &#9662;';
             dropdownContent.style.display = 'none';
         }
 
@@ -163,7 +170,7 @@
         document.getElementById('fertilizer-input').oninput = function() {
             var fertilizerAmount = this.value;
             var scrapAmount = Math.floor(fertilizerAmount / 2) * 3;
-            var resultText = '<img src="icon/Scrap.png" alt="Scrap Icon" width="20" height="20"> ' + 'Scrap: ' + scrapAmount;
+            var resultText = '<img src="icon/Scrap.png" alt="Scrap Icon" width="24" height="24"> ' + scrapAmount;
             document.getElementById('calculator-result').innerHTML = '<span class="calculator-result-text">' + resultText + '</span>';
         }
 
