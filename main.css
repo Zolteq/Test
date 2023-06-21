@@ -1,64 +1,31 @@
 body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  margin: 0;
-  padding: 20px;
-  background-color: #f2f2f2;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+    background-color: #f2f2f2;
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f9f9f9;
 }
 
 h1, h2, h3 {
-  color: #333;
+    color: #333;
 }
 
-.custom-select {
-  position: relative;
-  display: inline-block;
-  margin: 10px auto;
+select {
+    width: 300px;
 }
 
-.custom-select select {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
-  appearance: none;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-}
-
-.logo {
-  position: absolute;
-  top: 50%;
-  left: 10px;
-  transform: translateY(-50%);
-  height: 40px; /* Adjust the height as needed */
-}
-
-.recycleLogo {
-  display: none;
-}
-
-.fertilizerLogo {
-  display: none;
-}
-
-option.recycleCalculator {
-  padding-left: 25px;
-}
-
-option.fertilizerCalculator {
-  padding-left: 25px;
+.option-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    vertical-align: middle;
 }
