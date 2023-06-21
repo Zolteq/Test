@@ -119,6 +119,7 @@
         .selected-item {
             display: flex;
             align-items: center;
+            justify-content: center;
             height: 48px;
         }
 
@@ -147,54 +148,53 @@
     </div>
 
     <script>
-var dropdown = document.getElementById('dropdown');
-var dropdownContent = document.getElementById('dropdown-content');
-var selectedItem = document.getElementById('dropdown-label');
-var selectedOption = document.getElementById('selected-option');
+        var dropdown = document.getElementById('dropdown');
+        var dropdownContent = document.getElementById('dropdown-content');
+        var selectedItem = document.getElementById('dropdown-label');
+        var selectedOption = document.getElementById('selected-option');
 
-dropdown.onmouseenter = function() {
-    dropdownContent.style.display = 'block';
-};
+        dropdown.onmouseenter = function() {
+            dropdownContent.style.display = 'block';
+        };
 
-dropdown.onmouseleave = function() {
-    dropdownContent.style.display = 'none';
-};
+        dropdown.onmouseleave = function() {
+            dropdownContent.style.display = 'none';
+        };
 
-document.getElementById('fertilizer-option').onclick = function(e) {
-    e.preventDefault();
-    document.querySelector('.calculator-input').style.display = 'block';
-    selectedItem.innerHTML = '<span class="selected-item"><img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="48" height="48"></span> Fertilizer Calculator';
-    selectedOption.innerHTML = 'Fertilizer Calculator';
-    dropdownContent.style.display = 'none';
-};
+        document.getElementById('fertilizer-option').onclick = function(e) {
+            e.preventDefault();
+            document.querySelector('.calculator-input').style.display = 'block';
+            selectedItem.innerHTML = '<span class="selected-item"><img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="48" height="48"></span> Fertilizer Calculator';
+            selectedOption.innerHTML = 'Fertilizer Calculator';
+            dropdownContent.style.display = 'none';
+        };
 
-document.getElementById('recycle-option').onclick = function(e) {
-    e.preventDefault();
-    alert('Recycle Calculator is currently under development. Please try again later.');
-    dropdownContent.style.display = 'none';
-};
+        document.getElementById('recycle-option').onclick = function(e) {
+            e.preventDefault();
+            alert('Recycle Calculator is currently under development. Please try again later.');
+            dropdownContent.style.display = 'none';
+        };
 
-document.getElementById('fertilizer-input').oninput = function() {
-    var fertilizerAmount = this.value;
-    var scrapAmount = Math.floor(fertilizerAmount / 2) * 3;
-    var resultText = '<img src="icon/Scrap.png" alt="Scrap Icon" width="48" height="48"> ' + scrapAmount;
-    document.getElementById('calculator-result').innerHTML = '<span class="calculator-result-text">' + resultText + '</span>';
-};
+        document.getElementById('fertilizer-input').oninput = function() {
+            var fertilizerAmount = this.value;
+            var scrapAmount = Math.floor(fertilizerAmount / 2) * 3;
+            var resultText = '<img src="icon/Scrap.png" alt="Scrap Icon" width="48" height="48"> ' + scrapAmount;
+            document.getElementById('calculator-result').innerHTML = '<span class="calculator-result-text">' + resultText + '</span>';
+        };
 
-window.onclick = function(e) {
-    if (!dropdown.contains(e.target)) {
-        dropdownContent.style.display = 'none';
-    }
-};
+        window.onclick = function(e) {
+            if (!dropdown.contains(e.target)) {
+                dropdownContent.style.display = 'none';
+            }
+        };
 
-function updateDropdownLabelWidth() {
-    var selectedLabelWidth = selectedItem.offsetWidth;
-    selectedOption.style.width = selectedLabelWidth + 'px';
-}
+        function updateDropdownLabelWidth() {
+            var selectedLabelWidth = selectedItem.offsetWidth;
+            selectedOption.style.width = selectedLabelWidth + 'px';
+        }
 
-window.addEventListener('resize', updateDropdownLabelWidth);
-updateDropdownLabelWidth();
-
+        window.addEventListener('resize', updateDropdownLabelWidth);
+        updateDropdownLabelWidth();
     </script>
 </body>
 </html>
