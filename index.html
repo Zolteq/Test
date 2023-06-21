@@ -69,7 +69,6 @@
             text-decoration: none;
             display: flex;
             align-items: center;
-            justify-content: center;
             border-bottom: 1px solid #ddd;
             white-space: nowrap;
             font-size: 18px;
@@ -145,7 +144,7 @@
     <h1>Welcome to our calculator selector</h1>
     <div class="dropdown" id="dropdown">
         <span id="dropdown-label">
-            <span class="selected-item" id="selected-item"></span> &#9662;
+            Select a calculator &#9662;
         </span>
         <div class="dropdown-content" id="dropdown-content">
             <a href="#" id="fertilizer-option"><img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="48" height="48"> Fertilizer Calculator</a>
@@ -161,7 +160,7 @@
     <script>
         var dropdown = document.getElementById('dropdown');
         var dropdownContent = document.getElementById('dropdown-content');
-        var selectedItem = document.getElementById('selected-item');
+        var selectedItem = document.getElementById('dropdown-label');
 
         dropdown.onclick = function(e) {
             e.stopPropagation();
@@ -172,7 +171,7 @@
             e.preventDefault();
             e.stopPropagation();
             document.querySelector('.calculator-input').style.display = 'block';
-            selectedItem.innerHTML = '<img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="48" height="48">';
+            selectedItem.innerHTML = '<span class="selected-item"><img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="48" height="48"></span> Fertilizer Calculator &#9662;';
             dropdownContent.style.display = 'none';
         }
 
