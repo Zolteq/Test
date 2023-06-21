@@ -16,7 +16,6 @@
 
         h1 {
             margin-bottom: 20px;
-            font-size: 24px;
         }
 
         .dropdown {
@@ -24,22 +23,29 @@
             display: inline-block;
             background-color: #ffffff;
             border: none;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             cursor: pointer;
             text-align: left;
-            min-width: 300px;
+            min-width: 200px;
         }
 
         .dropdown span {
             display: flex;
             align-items: center;
-            justify-content: center;
             overflow: hidden;
+            padding-right: 20px; /* space for the down arrow */
             white-space: nowrap;
-            font-size: 20px;
-            transition: width 0.3s ease-in-out;
+        }
+
+        .dropdown:before {
+            content: '';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
         }
 
         .dropdown-content {
@@ -49,7 +55,7 @@
             min-width: 100%;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
-            border-radius: 8px;
+            border-radius: 4px;
             overflow: hidden;
             top: 100%;
             left: 0;
@@ -57,18 +63,16 @@
 
         .dropdown-content a {
             color: black;
-            padding: 20px;
+            padding: 12px 16px;
             text-decoration: none;
             display: flex;
             align-items: center;
+            border-bottom: 1px solid #ddd;
             white-space: nowrap;
-            font-size: 18px;
         }
 
         .dropdown-content a img {
-            margin-right: 15px;
-            width: 48px;
-            height: 48px;
+            margin-right: 10px;
         }
 
         .dropdown-content a:last-child {
@@ -79,35 +83,33 @@
             background-color: #ddd;
         }
 
-        .dropdown:hover .dropdown-content {
+        .dropdown:hover .dropdown-content,
+        .dropdown-content.show {
             display: block;
         }
 
         .calculator-input {
             display: none;
-            margin-top: 40px;
-            width: 300px;
+            margin-top: 20px;
+            width: 200px;
             text-align: center;
         }
 
         .calculator-input input {
             width: 100%;
-            padding: 10px;
+            padding: 5px;
             box-sizing: border-box;
         }
 
         .calculator-result {
-            margin-top: 20px;
+            margin-top: 10px;
             display: flex;
             align-items: center;
-            font-size: 20px;
         }
 
         .calculator-result img {
-            margin-right: 10px;
+            margin-right: 5px;
             vertical-align: middle;
-            width: 48px;
-            height: 48px;
         }
 
         .calculator-result-text {
@@ -115,30 +117,17 @@
             display: flex;
             align-items: center;
         }
-
-        .selected-item {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 48px;
-        }
-
-        .selected-item img {
-            margin-right: 10px;
-            width: 48px;
-            height: 48px;
-        }
     </style>
 </head>
 <body>
     <h1>Welcome to our calculator selector</h1>
     <div class="dropdown" id="dropdown">
         <span id="dropdown-label">
-            Select a calculator
+            Select a calculator &#9662;
         </span>
         <div class="dropdown-content" id="dropdown-content">
-            <a href="#" id="fertilizer-option"><img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="48" height="48"> Fertilizer Calculator</a>
-            <a href="#" id="recycle-option"><img src="icon/Scrap.png" alt="Scrap Icon" width="48" height="48"> Recycle Calculator (Under Development)</a>
+            <a href="#" id="fertilizer-option"><img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="20" height="20"> Fertilizer Calculator</a>
+            <a href="#" id="recycle-option"><img src="icon/Scrap.png" alt="Scrap Icon" width="20" height="20"> Recycle Calculator (Under Development)</a>
         </div>
     </div>
 
@@ -150,51 +139,39 @@
     <script>
         var dropdown = document.getElementById('dropdown');
         var dropdownContent = document.getElementById('dropdown-content');
-        var selectedItem = document.getElementById('dropdown-label');
-        var selectedOption = document.getElementById('selected-option');
 
-        dropdown.onmouseenter = function() {
-            dropdownContent.style.display = 'block';
-        };
-
-        dropdown.onmouseleave = function() {
-            dropdownContent.style.display = 'none';
-        };
+        dropdown.onclick = function(e) {
+            e.stopPropagation();
+            dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+        }
 
         document.getElementById('fertilizer-option').onclick = function(e) {
             e.preventDefault();
+            e.stopPropagation();
             document.querySelector('.calculator-input').style.display = 'block';
-            selectedItem.innerHTML = '<span class="selected-item"><img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="48" height="48"></span> Fertilizer Calculator';
-            selectedOption.innerHTML = 'Fertilizer Calculator';
+            document.getElementById('dropdown-label').innerHTML = '<img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="20" height="20"> Fertilizer Calculator &#9662;';
             dropdownContent.style.display = 'none';
-        };
+        }
 
         document.getElementById('recycle-option').onclick = function(e) {
             e.preventDefault();
+            e.stopPropagation();
             alert('Recycle Calculator is currently under development. Please try again later.');
             dropdownContent.style.display = 'none';
-        };
+        }
 
         document.getElementById('fertilizer-input').oninput = function() {
             var fertilizerAmount = this.value;
             var scrapAmount = Math.floor(fertilizerAmount / 2) * 3;
-            var resultText = '<img src="icon/Scrap.png" alt="Scrap Icon" width="48" height="48"> ' + scrapAmount;
+            var resultText = '<img src="icon/Scrap.png" alt="Scrap Icon" width="20" height="20"> ' + scrapAmount;
             document.getElementById('calculator-result').innerHTML = '<span class="calculator-result-text">' + resultText + '</span>';
-        };
-
-        window.onclick = function(e) {
-            if (!dropdown.contains(e.target)) {
-                dropdownContent.style.display = 'none';
-            }
-        };
-
-        function updateDropdownLabelWidth() {
-            var selectedLabelWidth = selectedItem.offsetWidth;
-            selectedOption.style.width = selectedLabelWidth + 'px';
         }
 
-        window.addEventListener('resize', updateDropdownLabelWidth);
-        updateDropdownLabelWidth();
+        window.onclick = function(e) {
+            if(e.target.id !== 'dropdown' && e.target.id !== 'dropdown-label' && e.target.id !== 'dropdown-content'){
+                dropdownContent.style.display = 'none';
+            }
+        }
     </script>
 </body>
 </html>
