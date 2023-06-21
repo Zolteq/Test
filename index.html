@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Custom Dropdown</title>
     <style>
         body {
@@ -101,11 +102,11 @@
         .calculator-result {
             margin-top: 10px;
         }
-    </style>
+      </style>
 </head>
 <body>
     <h1>Welcome to our calculator selector</h1>
-    <div class="dropdown" onclick="toggleDropdown()">
+    <div class="dropdown" id="dropdown">
         <span id="dropdown-label">
             Select a calculator
         </span>
@@ -121,32 +122,39 @@
     </div>
 
     <script>
-        function toggleDropdown() {
-            var dropdownContent = document.getElementById('dropdown-content');
-            if (dropdownContent.style.display === 'block') {
-                dropdownContent.style.display = 'none';
-            } else {
-                dropdownContent.style.display = 'block';
-            }
+        var dropdown = document.getElementById('dropdown');
+        var dropdownContent = document.getElementById('dropdown-content');
+
+        dropdown.onclick = function(e) {
+            e.stopPropagation();
+            dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
         }
 
         document.getElementById('fertilizer-option').onclick = function(e) {
             e.preventDefault();
+            e.stopPropagation();
             document.querySelector('.calculator-input').style.display = 'block';
             document.getElementById('dropdown-label').innerHTML = '<img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="20" height="20"> Fertilizer Calculator';
-            document.getElementById('dropdown-content').style.display = 'none';
+            dropdownContent.style.display = 'none';
         }
 
         document.getElementById('recycle-option').onclick = function(e) {
             e.preventDefault();
+            e.stopPropagation();
             document.getElementById('dropdown-label').innerHTML = '<img src="icon/Scrap.png" alt="Scrap Icon" width="20" height="20"> Recycle Calculator (Under Development)';
-            document.getElementById('dropdown-content').style.display = 'none';
+            dropdownContent.style.display = 'none';
         }
 
         document.getElementById('fertilizer-input').oninput = function() {
             var fertilizerAmount = this.value;
             var scrapAmount = Math.floor(fertilizerAmount / 2) * 3;
             document.getElementById('calculator-result').innerText = `Equivalent scrap: ${scrapAmount}`;
+        }
+
+        window.onclick = function(e) {
+            if(e.target.id !== 'dropdown' && e.target.id !== 'dropdown-label' && e.target.id !== 'dropdown-content'){
+                dropdownContent.style.display = 'none';
+            }
         }
     </script>
 </body>
