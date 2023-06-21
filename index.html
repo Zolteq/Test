@@ -37,7 +37,7 @@
         }
 
         .dropdown:before {
-            content: '\A0&#9660;';
+            content: '\A0\u25BC';
             position: absolute;
             right: 10px;
             top: 50%;
@@ -56,7 +56,6 @@
             overflow: hidden;
             top: 100%;
             left: 0;
-            margin-top: 2px;
         }
 
         .dropdown-content a {
@@ -105,7 +104,7 @@
 <body>
     <h1>Welcome to our calculator selector</h1>
     <div class="dropdown">
-        <span>Select a calculator</span>
+        <span id="dropdown-label">Select a calculator</span>
         <div class="dropdown-content">
             <a href="#" id="fertilizer-option"><img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="20" height="20"> Fertilizer Calculator</a>
             <a href="#"><img src="icon/Scrap.png" alt="Scrap Icon" width="20" height="20"> Recycle Calculator (Under Development)</a>
@@ -118,13 +117,15 @@
     </div>
 
     <script>
-        document.getElementById('fertilizer-option').onclick = function() {
+        document.getElementById('fertilizer-option').onclick = function(e) {
+            e.preventDefault();
             document.querySelector('.calculator-input').style.display = 'block';
+            document.getElementById('dropdown-label').textContent = 'Fertilizer Calculator';
         }
 
         document.getElementById('fertilizer-input').oninput = function() {
             var fertilizerAmount = this.value;
-            var scrapAmount = (fertilizerAmount / 2) * 3;
+            var scrapAmount = Math.floor(fertilizerAmount / 2) * 3;
             document.getElementById('calculator-result').innerText = `Equivalent scrap: ${scrapAmount}`;
         }
     </script>
