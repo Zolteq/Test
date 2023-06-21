@@ -81,7 +81,8 @@
             background-color: #ddd;
         }
 
-        .dropdown:hover .dropdown-content {
+        .dropdown:hover .dropdown-content,
+        .dropdown-content.show {
             display: block;
         }
 
@@ -100,23 +101,15 @@
         .calculator-result {
             margin-top: 10px;
         }
-
-        #dropdown-icon {
-            margin-right: 10px;
-            visibility: hidden;
-            width: 20px;
-            height: 20px;
-        }
     </style>
 </head>
 <body>
     <h1>Welcome to our calculator selector</h1>
-    <div class="dropdown">
+    <div class="dropdown" onclick="toggleDropdown()">
         <span id="dropdown-label">
-            <img id="dropdown-icon" src="" alt="Selected Icon">
             Select a calculator
         </span>
-        <div class="dropdown-content">
+        <div class="dropdown-content" id="dropdown-content">
             <a href="#" id="fertilizer-option"><img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="20" height="20"> Fertilizer Calculator</a>
             <a href="#" id="recycle-option"><img src="icon/Scrap.png" alt="Scrap Icon" width="20" height="20"> Recycle Calculator (Under Development)</a>
         </div>
@@ -128,21 +121,26 @@
     </div>
 
     <script>
+        function toggleDropdown() {
+            var dropdownContent = document.getElementById('dropdown-content');
+            if (dropdownContent.style.display === 'block') {
+                dropdownContent.style.display = 'none';
+            } else {
+                dropdownContent.style.display = 'block';
+            }
+        }
+
         document.getElementById('fertilizer-option').onclick = function(e) {
             e.preventDefault();
             document.querySelector('.calculator-input').style.display = 'block';
-            document.querySelector('.dropdown-content').style.display = 'none';
-            document.getElementById('dropdown-icon').src = 'icon/Fertilizer.png';
-            document.getElementById('dropdown-icon').style.visibility = 'visible';
-            document.getElementById('dropdown-label').textContent = ' Fertilizer Calculator';
+            document.getElementById('dropdown-label').innerHTML = '<img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="20" height="20"> Fertilizer Calculator';
+            document.getElementById('dropdown-content').style.display = 'none';
         }
 
         document.getElementById('recycle-option').onclick = function(e) {
             e.preventDefault();
-            document.querySelector('.dropdown-content').style.display = 'none';
-            document.getElementById('dropdown-icon').src = 'icon/Scrap.png';
-            document.getElementById('dropdown-icon').style.visibility = 'visible';
-            document.getElementById('dropdown-label').textContent = ' Recycle Calculator (Under Development)';
+            document.getElementById('dropdown-label').innerHTML = '<img src="icon/Scrap.png" alt="Scrap Icon" width="20" height="20"> Recycle Calculator (Under Development)';
+            document.getElementById('dropdown-content').style.display = 'none';
         }
 
         document.getElementById('fertilizer-input').oninput = function() {
