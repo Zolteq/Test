@@ -19,51 +19,46 @@ h1, h2, h3 {
   color: #333;
 }
 
-select, input[type="number"], button {
-  display: block;
+.custom-select {
+  position: relative;
+  display: inline-block;
   margin: 10px auto;
+}
+
+.custom-select select {
+  display: block;
+  width: 100%;
   padding: 10px;
   font-size: 16px;
-  background-color: #fff;
+  font-weight: bold;
+  color: #333;
+  appearance: none;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-select {
-  width: 200px;
-}
-
-button {
-  background-color: #4CAF50;
-  color: white;
-  cursor: pointer;
-}
-
-#result {
-  font-size: 18px;
-  font-weight: bold;
-  margin-top: 20px;
-}
-
-.calculator {
-  margin-top: 40px;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: #fff;
 }
 
-option.icon {
-  background-repeat: no-repeat;
-  background-position: left center;
-  padding-left: 25px;
+.logo {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  height: 40px; /* Adjust the height as needed */
+}
+
+.recycleLogo {
+  display: none;
+}
+
+.fertilizerLogo {
+  display: none;
 }
 
 option.recycleCalculator {
-  background-image: url("/icon/Scrap.png");
+  padding-left: 25px;
 }
 
 option.fertilizerCalculator {
-  background-image: url("/icon/Fertilizer.png");
+  padding-left: 25px;
 }
