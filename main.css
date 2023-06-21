@@ -61,9 +61,9 @@ option.icon {
 }
 
 option.recycleCalculator {
-  background-image: url(/icon/Scrap.png);
+  background-image: url("/icon/Scrap.png");
 }
 
 option.fertilizerCalculator {
-  background-image: url(/icon/Fertilizer.png);
+  background-image: url("/icon/Fertilizer.png");
 }
