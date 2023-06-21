@@ -150,7 +150,6 @@
         var dropdown = document.getElementById('dropdown');
         var dropdownContent = document.getElementById('dropdown-content');
         var selectedItem = document.getElementById('dropdown-label');
-        var selectedOption = document.getElementById('selected-option');
 
         dropdown.onmouseenter = function() {
             dropdownContent.style.display = 'block';
@@ -160,19 +159,18 @@
             dropdownContent.style.display = 'none';
         };
 
-        document.getElementById('fertilizer-option').onclick = function(e) {
+        document.getElementById('fertilizer-option').addEventListener('click', function(e) {
             e.preventDefault();
             document.querySelector('.calculator-input').style.display = 'block';
             selectedItem.innerHTML = '<span class="selected-item"><img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="48" height="48"></span> Fertilizer Calculator';
-            selectedOption.innerHTML = 'Fertilizer Calculator';
             dropdownContent.style.display = 'none';
-        };
+        });
 
-        document.getElementById('recycle-option').onclick = function(e) {
+        document.getElementById('recycle-option').addEventListener('click', function(e) {
             e.preventDefault();
             alert('Recycle Calculator is currently under development. Please try again later.');
             dropdownContent.style.display = 'none';
-        };
+        });
 
         document.getElementById('fertilizer-input').oninput = function() {
             var fertilizerAmount = this.value;
@@ -186,14 +184,6 @@
                 dropdownContent.style.display = 'none';
             }
         };
-
-        function updateDropdownLabelWidth() {
-            var selectedLabelWidth = selectedItem.offsetWidth;
-            selectedOption.style.width = selectedLabelWidth + 'px';
-        }
-
-        window.addEventListener('resize', updateDropdownLabelWidth);
-        updateDropdownLabelWidth();
     </script>
 </body>
 </html>
