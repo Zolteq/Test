@@ -1,178 +1,47 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Custom Dropdown</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: Arial, sans-serif;
-            background: #f9f9f9;
-        }
+var dropdown = document.getElementById('dropdown');
+var dropdownContent = document.getElementById('dropdown-content');
+var selectedItem = document.getElementById('dropdown-label');
+var selectedOption = document.getElementById('selected-option');
 
-        h1 {
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
+dropdown.onmouseenter = function() {
+    dropdownContent.style.display = 'block';
+};
 
-        .dropdown {
-            position: relative;
-            display: inline-block;
-            background-color: #ffffff;
-            border: none;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            text-align: left;
-            min-width: 300px;
-        }
+dropdown.onmouseleave = function() {
+    dropdownContent.style.display = 'none';
+};
 
-        .dropdown span {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            padding-right: 30px; /* space for the down arrow */
-            white-space: nowrap;
-            font-size: 20px;
-        }
+document.getElementById('fertilizer-option').onclick = function(e) {
+    e.preventDefault();
+    document.querySelector('.calculator-input').style.display = 'block';
+    selectedItem.innerHTML = '<span class="selected-item"><img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="48" height="48"></span> Fertilizer Calculator';
+    selectedOption.innerHTML = 'Fertilizer Calculator';
+    dropdownContent.style.display = 'none';
+};
 
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f1f1f1;
-            min-width: 100%;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-            border-radius: 8px;
-            overflow: hidden;
-            top: 100%;
-            left: 0;
-        }
+document.getElementById('recycle-option').onclick = function(e) {
+    e.preventDefault();
+    alert('Recycle Calculator is currently under development. Please try again later.');
+    dropdownContent.style.display = 'none';
+};
 
-        .dropdown-content a {
-            color: black;
-            padding: 20px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            border-bottom: 1px solid #ddd;
-            white-space: nowrap;
-            font-size: 18px;
-        }
+document.getElementById('fertilizer-input').oninput = function() {
+    var fertilizerAmount = this.value;
+    var scrapAmount = Math.floor(fertilizerAmount / 2) * 3;
+    var resultText = '<img src="icon/Scrap.png" alt="Scrap Icon" width="48" height="48"> ' + scrapAmount;
+    document.getElementById('calculator-result').innerHTML = '<span class="calculator-result-text">' + resultText + '</span>';
+};
 
-        .dropdown-content a img {
-            margin-right: 15px;
-            width: 48px;
-            height: 48px;
-        }
+window.onclick = function(e) {
+    if (!dropdown.contains(e.target)) {
+        dropdownContent.style.display = 'none';
+    }
+};
 
-        .dropdown-content a:last-child {
-            border-bottom: none;
-        }
+function updateDropdownLabelWidth() {
+    var selectedLabelWidth = selectedItem.offsetWidth;
+    selectedOption.style.width = selectedLabelWidth + 'px';
+}
 
-        .dropdown-content a:hover {
-            background-color: #ddd;
-        }
-
-        .dropdown:hover .dropdown-content,
-        .dropdown-content.show {
-            display: block;
-        }
-
-        .calculator-input {
-            display: none;
-            margin-top: 40px;
-            width: 300px;
-            text-align: center;
-        }
-
-        .calculator-input input {
-            width: 100%;
-            padding: 10px;
-            box-sizing: border-box;
-        }
-
-        .calculator-result {
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-            font-size: 20px;
-        }
-
-        .calculator-result img {
-            margin-right: 10px;
-            vertical-align: middle;
-            width: 48px;
-            height: 48px;
-        }
-
-        .calculator-result-text {
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-        }
-    </style>
-</head>
-<body>
-    <h1>Welcome to our calculator selector</h1>
-    <div class="dropdown" id="dropdown">
-        <span id="dropdown-label">
-            Select a calculator
-        </span>
-        <div class="dropdown-content" id="dropdown-content">
-            <a href="#" id="fertilizer-option"><img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="48" height="48"> Fertilizer Calculator</a>
-            <a href="#" id="recycle-option"><img src="icon/Scrap.png" alt="Scrap Icon" width="48" height="48"> Recycle Calculator (Under Development)</a>
-        </div>
-    </div>
-
-    <div class="calculator-input">
-        <input type="number" id="fertilizer-input" placeholder="Enter amount of fertilizer">
-        <div class="calculator-result" id="calculator-result"></div>
-    </div>
-
-    <script>
-        var dropdown = document.getElementById('dropdown');
-        var dropdownContent = document.getElementById('dropdown-content');
-        var selectedItem = document.getElementById('dropdown-label');
-
-        dropdown.onclick = function(e) {
-            e.stopPropagation();
-            dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
-        }
-
-        document.getElementById('fertilizer-option').onclick = function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            document.querySelector('.calculator-input').style.display = 'block';
-            selectedItem.innerHTML = '<img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="48" height="48"><span>Fertilizer Calculator</span>';
-            dropdownContent.style.display = 'none';
-        }
-
-        document.getElementById('recycle-option').onclick = function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            alert('Recycle Calculator is currently under development. Please try again later.');
-            dropdownContent.style.display = 'none';
-        }
-
-        document.getElementById('fertilizer-input').oninput = function() {
-            var fertilizerAmount = this.value;
-            var scrapAmount = Math.floor(fertilizerAmount / 2) * 3;
-            var resultText = '<img src="icon/Scrap.png" alt="Scrap Icon" width="48" height="48"> ' + scrapAmount;
-            document.getElementById('calculator-result').innerHTML = '<span class="calculator-result-text">' + resultText + '</span>';
-        }
-
-        window.onclick = function(e) {
-            if(e.target.id !== 'dropdown' && e.target.id !== 'dropdown-label' && e.target.id !== 'dropdown-content'){
-                dropdownContent.style.display = 'none';
-            }
-        }
-    </script>
-</body>
-</html>
+window.addEventListener('resize', updateDropdownLabelWidth);
+updateDropdownLabelWidth();
