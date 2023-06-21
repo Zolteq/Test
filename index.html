@@ -105,7 +105,6 @@
             margin-top: 10px;
             display: flex;
             align-items: center;
-            vertical-align: middle;
         }
 
         .calculator-result img {
@@ -115,7 +114,7 @@
         .calculator-result-text {
             font-weight: bold;
         }
-  </style>
+    </style>
 </head>
 <body>
     <h1>Welcome to our calculator selector</h1>
@@ -161,7 +160,7 @@
         document.getElementById('fertilizer-input').oninput = function() {
             var fertilizerAmount = this.value;
             var scrapAmount = Math.floor(fertilizerAmount / 2) * 3;
-            var resultText = '<img src="icon/Scrap.png" alt="Scrap Icon" width="20" height="20"> ' +'Scrap:' + scrapAmount;
+            var resultText = '<img src="icon/Scrap.png" alt="Scrap Icon" width="20" height="20"> ' + scrapAmount;
             document.getElementById('calculator-result').innerHTML = '<span class="calculator-result-text">' + resultText + '</span>';
         }
 
