@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <button id="dark-mode-btn" onclick="toggleDarkMode()">
+      <div class="switch"></div>
+    </button>
+    <div class="component-grid">
+      <div class="component">
+        <img src="./icon/sheetmetal.png" alt="Sheet Metal">
+        <span class="component-name">Sheet Metal</span>
+        <input type="number" value="" min="0" placeholder="0" onchange="calculateResult()">
+      </div>
+      <div class="component">
+        <img src="./icon/rope.png" alt="Rope">
+        <span class="component-name">Rope</span>
+        <input type="number" value="" min="0" placeholder="0" onchange="calculateResult()">
+      </div>
+      <div class="component">
+        <img src="./icon/tarp.png" alt="Tarp">
+        <span class="component-name">Tarp</span>
+        <input type="number" value="" min="0" placeholder="0" onchange="calculateResult()">
+      </div>
+      <div class="component">
+        <img src="./icon/sewingkit.png" alt="Sewing Kit">
+        <span class="component-name">Sewing Kit</span>
+        <input type="number" value="" min="0" placeholder="0" onchange="calculateResult()">
+      </div>
+      <div class="component">
+        <img src="./icon/roadsigns.png" alt="Road Signs">
+        <span class="component-name">Road Signs</span>
+        <input type="number" value="" min="0" placeholder="0" onchange="calculateResult()">
+      </div>
+      <div class="component">
+        <img src="./icon/metalspring.png" alt="Metal Spring">
+        <span class="component-name">Metal Spring</span>
+        <input type="number" value="" min="0" placeholder="0" onchange="calculateResult()">
+      </div>
+      <div class="component">
+        <img src="./icon/semibody.png" alt="Semi Automatic Body">
+        <span class="component-name">Semi Automatic Body</span>
+        <input type="number" value="" min="0" placeholder="0" onchange="calculateResult()">
+      </div>
+      <div class="component">
+        <img src="./icon/riflebody.png" alt="Rifle Body">
+        <span class="component-name">Rifle Body</span>
+        <input type="number" value="" min="0" placeholder="0" onchange="calculateResult()">
+      </div>
+      <div class="component">
+        <img src="./icon/metalpipe.png" alt="Metal Pipe">
+        <span class="component-name">Metal Pipe</span>
+        <input type="number" value="" min="0" placeholder="0" onchange="calculateResult()">
+      </div>
+      <div class="component">
+        <img src="./icon/gears.png" alt="Gears">
+        <span class="component-name">Gears</span>
+        <input type="number" value="" min="0" placeholder="0" onchange="calculateResult()">
+      </div>
+      <div class="component">
+        <img src="./icon/propanetank.png" alt="Empty Propane Tank">
+        <span class="component-name">Empty Propane Tank</span>
+        <input type="number" value="" min="0" placeholder="0" onchange="calculateResult()">
+      </div>
+      <div class="component">
+        <img src="./icon/techparts.png" alt="Tech Trash">
+        <span class="component-name">Tech Trash</span>
+        <input type="number" value="" min="0" placeholder="0" onchange="calculateResult()">
+      </div>
+      <div class="component">
+        <img src="./icon/smgbody.png" alt="SMG Body">
+        <span class="component-name">SMG Body</span>
+        <input type="number" value="" min="0" placeholder="0" onchange="calculateResult()">
+      </div>
+      <div class="component">
+        <img src="./icon/Blade.png" alt="Metal Blade">
+        <span class="component-name">Metal Blade</span>
+        <input type="number" value="" min="0" placeholder="0" onchange="calculateResult()">
+      </div>
+    </div>
+    <div class="resources-section">
+      <div class="resources-label">
+        <h2>Resources</h2>
+      </div>
+      <div id="result-container"></div>
+    </div>
+    <div class="scrap-options">
+      <input type="radio" id="scrap-all" name="scrap-option" value="all" checked>
+      <label for="scrap-all">Scrap All</label>
+      <input type="radio" id="scrap-once" name="scrap-option" value="once">
+      <label for="scrap-once">Scrap Once</label>
+    </div>
+  </div>
+
+  <script>
+    const darkModeKey = 'darkMode';
+
+    // Function to toggle dark mode
+    function toggleDarkMode() {
+      const body = document.body;
+      const switchButton = document.querySelector('.switch');
+
+      // Toggle dark mode class on body
+      body.classList.toggle('dark-mode');
+      // Toggle switch-on class on switch button
+      switchButton.classList.toggle('switch-on');
+
+      // Check if dark mode is active
+      const isDarkMode = body.classList.contains('dark-mode');
+
+      // Save user's preference to localStorage
+      localStorage.setItem(darkModeKey, isDarkMode);
+    }
+
+    // Check if user has a saved preference
+    const savedDarkMode = localStorage.getItem(darkModeKey);
+
+    // Apply saved preference if available
+    if (savedDarkMode === 'true') {
+      document.body.classList.add('dark-mode');
+      document.querySelector('.switch').classList.add('switch-on');
+    }
+
+    // Define the resource icons
+    const resourceIcons = {
+      'Scrap': './icon/scrap.png',
+      'Metal Fragments': './icon/metalfragments.png',
+      'High Quality Metal': './icon/highqualitymetal.png',
+      'Rope': './icon/rope.png',
+      'Tarp': './icon/tarp.png',
+      'Cloth': './icon/cloth.png',
+      'Road Signs': './icon/roadsigns.png',
+      'Metal Spring': './icon/metalspring.png',
+      'Semi Automatic Body': './icon/semibody.png',
+      'Rifle Body': './icon/riflebody.png',
+      'Metal Pipe': './icon/metalpipe.png',
+      'Gears': './icon/gears.png',
+      'Empty Propane Tank': './icon/propanetank.png',
+      'Tech Trash': './icon/techparts.png',
+      'SMG Body': './icon/smgbody.png',
+      'Metal Blade': './icon/Blade.png',
+      // Add more resource names and their respective icons here
+    };
+
+    // Define the resource mappings
+    const resourceMappings = {
+      'Sheet Metal': [
+        { name: 'Scrap', amount: 8 },
+        { name: 'Metal Fragments', amount: 100 },
+        { name: 'High Quality Metal', amount: 1 },
+      ],
+      'Rope': [
+        { name: 'Cloth', amount: 15 },
+      ],
+      'Tarp': [
+        { name: 'Tarp', amount: 1 },
+      ],
+      'Sewing Kit': [
+        { name: 'Cloth', amount: 10 },
+        { name: 'Rope', amount: 2 },
+      ],
+      'Road Signs': [
+        { name: 'Scrap', amount: 5 },
+        { name: 'High Quality Metal', amount: 1 },
+      ],
+      'Metal Spring': [
+        { name: 'Scrap', amount: 10 },
+        { name: 'High Quality Metal', amount: 1 },
+      ],
+      'Semi Automatic Body': [
+        { name: 'Scrap', amount: 15 },
+        { name: 'High Quality Metal', amount: 2 },
+        { name: 'Metal Fragments', amount: 75 },
+      ],
+      'Rifle Body': [
+        { name: 'Scrap', amount: 25 },
+        { name: 'High Quality Metal', amount: 2 },
+      ],
+      'Metal Pipe': [
+        { name: 'Scrap', amount: 5 },
+        { name: 'High Quality Metal', amount: 1 },
+      ],
+      'Gears': [
+        { name: 'Scrap', amount: 10 },
+        { name: 'Metal Fragments', amount: 13 },
+      ],
+      'Empty Propane Tank': [
+        { name: 'Scrap', amount: 1 },
+        { name: 'Metal Fragments', amount: 50 },
+      ],
+      'Tech Trash': [
+        { name: 'Scrap', amount: 20 },
+        { name: 'High Quality Metal', amount: 1 },
+      ],
+      'SMG Body': [
+        { name: 'Scrap', amount: 15 },
+        { name: 'High Quality Metal', amount: 2 },
+      ],
+      'Metal Blade': [
+        { name: 'Scrap', amount: 2 },
+        { name: 'Metal Fragments', amount: 15 },
+      ],
+    };
+
+  // Function to calculate and display the result
+  function calculateResult() {
+    const components = document.querySelectorAll('.component');
+    const scrapAllOption = document.getElementById('scrap-all').checked;
+
+    // Clear the previous result
+    const resultContainer = document.getElementById('result-container');
+    resultContainer.innerHTML = '';
+
+    // Calculate the total resources
+    const totalResources = {};
+
+    // Iterate over the components
+    components.forEach(component => {
+      const componentName = component.querySelector('.component-name').textContent;
+      const quantityInput = component.querySelector('input');
+      const quantity = parseInt(quantityInput.value);
+
+      // Calculate the resources for the component
+      calculateResources(componentName, quantity);
+    });
+
+    function calculateResources(componentName, quantity, processedComponents = new Set()) {
+      if (!processedComponents.has(componentName) && resourceMappings.hasOwnProperty(componentName)) {
+        processedComponents.add(componentName);
+        const resources = resourceMappings[componentName];
+
+        resources.forEach(resource => {
+          const { name, amount } = resource;
+          const totalAmount = quantity * amount;
+
+          if (totalAmount > 0) {
+            if (totalResources.hasOwnProperty(name)) {
+              totalResources[name] += totalAmount;
+            } else {
+              totalResources[name] = totalAmount;
+            }
+
+            // Check if the resource is another component and if "Scrap All" option is selected
+            if (resourceMappings.hasOwnProperty(name) && scrapAllOption) {
+              calculateResources(name, totalAmount, processedComponents);
+            }
+          }
+        });
+      }
+    }
+
+    // Display the total resources
+    Object.entries(totalResources).forEach(([name, amount]) => {
+      // If the resource is a component and it's fully scrapped, skip it
+      if (resourceMappings.hasOwnProperty(name) && scrapAllOption) return;
+
+      const resourceItem = document.createElement('div');
+      resourceItem.classList.add('resource-item');
+
+      // Create the icon element
+      const icon = document.createElement('img');
+      icon.src = resourceIcons[name];
+      icon.alt = name;
+      resourceItem.appendChild(icon);
+
+      // Create the resource name element
+      const resourceName = document.createElement('span');
+      resourceName.innerHTML = `${name}:&nbsp; `;
+      resourceItem.appendChild(resourceName);
+
+      // Create the amount element
+      const resourceAmount = document.createElement('span');
+      resourceAmount.classList.add('resource-amount');
+      resourceAmount.textContent = amount;
+      resourceItem.appendChild(resourceAmount);
+
+      resultContainer.appendChild(resourceItem);
+    });
+  }
+
+  const componentGrid = document.querySelector('.component-grid');
+  componentGrid.addEventListener('input', calculateResult);
+
+  // Event listeners for radio buttons
+  const scrapAllOption = document.getElementById('scrap-all');
+  const scrapOnceOption = document.getElementById('scrap-once');
+
+  scrapAllOption.addEventListener('change', calculateResult);
+  scrapOnceOption.addEventListener('change', calculateResult);
+</script>
+
+</script>
+</body>
+</html>
