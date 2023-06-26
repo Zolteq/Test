@@ -1,0 +1,143 @@
+#dark-mode-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #868484;
+    color: white;
+    padding: 10px 25px;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.switch {
+    position: absolute;
+    top: 50%;
+    left: 1px;
+    width: 18px;
+    height: 18px;
+    background-color: #000000;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+    transform: translateY(-50%);
+}
+
+.switch-on {
+    transform: translateY(-50%) translateX(165%);
+    background-color: #222;
+}
+
+.dark-mode {
+    background-color: #222;
+    color: #000000;
+}
+
+.dark-mode h1,h3 {
+    color: #fff;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 15vh;
+    font-family: Arial, sans-serif;
+    background: #f9f9f9;
+}
+
+button.back-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.switch i {
+    position: absolute;
+    top: 9.5%;
+    left: 4%;
+    transform: translateY(-0%);
+    font-size: 16px;
+    color: #ffffff;
+    transition: transform 0.3s ease;
+}
+
+.switch-on i {
+    transform: translateY(0%) translateX(0%);
+    color: #e3e3e3;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+}
+
+.header img {
+    margin-right: 10px;
+}
+
+.input-container {
+    text-align: center;
+    margin-top: 20px;
+    height: 80px; /* Add a fixed height to the input container */
+}
+
+.input-container h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: black; /* Default text color */
+
+}
+
+body.dark-mode .input-container h3 {
+    color: white; /* Text color in dark mode */
+}
+
+.input-container input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 150px;
+    text-align: center;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#scrap-result {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    color: black; /* Default text color */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dark-mode #scrap-result {
+    color: white; /* Text color in dark mode */
+}
+
+#scrap-result .scrap-output {
+    display: flex;
+    align-items: center;
+}
+
+
+#scrap-result img {
+    margin-right: 5px;
+}
+
+.output-container {
+    text-align: center;
+}
+
+
