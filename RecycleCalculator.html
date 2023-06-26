@@ -1,14 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="stylesheet" type="text/css" href="RecycleCSS.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
+  <button id="dark-mode-btn" onclick="toggleDarkMode()">
+    <div class="switch">
+        <i class="fas fa-sun"></i>
+        <i class="fas fa-moon"></i>
+    </div>
+  </button>
+  <div class="header">
+    <img src="icon/Recycler_icon.png" alt="Fertilizer Icon" width="48" height="48">
+    <h1>Recycle Calculator</h1>
+  </div>
+  <button class="back-button" onclick="goBack()">Back</button>
   <div class="container">
-    <button id="dark-mode-btn" onclick="toggleDarkMode()">
-      <div class="switch"></div>
-    </button>
-    <div class="component-grid">
+    <div class="component-section"> <!-- Added this wrapper -->
+      <button class="add-component-button small-width" onclick="toggleComponentList()">Add Specific Components & Items</button>
+      <div id="component-list" class="dropdown-content">
+          <input type="text" id="component-search" placeholder="Search..." onclick="stopPropagation(event)" oninput="filterComponents()">
+          <div class="component-option" onclick="addComponent('Auto Turret')">
+            <div class="icon-container">
+              <img src="./icon/autoturret.png" alt="Auto Turret">
+            </div>
+            <span>Auto Turret</span>
+          </div>
+          <div class="component-option">
+            <div class="icon-container">
+              <img src="./icon/m249.png" alt="M249">
+            </div>
+            <span>M249</span>
+          </div>
+      </div>
+      <div class="component-grid">
       <div class="component">
         <img src="./icon/sheetmetal.png" alt="Sheet Metal">
         <span class="component-name">Sheet Metal</span>
@@ -79,49 +105,166 @@
         <span class="component-name">Metal Blade</span>
         <input type="number" value="" min="0" placeholder="0" onchange="calculateResult()">
       </div>
+      <div class="component">
+        <img src="./icon/cctvcamera.png" alt="CCTV Camera">
+        <span class="component-name">CCTV Camera</span>
+        <input type="number" value="" min="0" placeholder="0" onchange="calculateResult()">
+      </div>
+      <div class="component">
+        <img src="./icon/targetingcomputer.png" alt="Targeting Computer">
+        <span class="component-name">Targeting Computer</span>
+        <input type="number" value="" min="0" placeholder="0" onchange="calculateResult()">
+      </div>
+      </div>
     </div>
     <div class="resources-section">
-      <div class="resources-label">
+     <div class="resources-label">
         <h2>Resources</h2>
       </div>
       <div id="result-container"></div>
     </div>
     <div class="scrap-options">
       <input type="radio" id="scrap-all" name="scrap-option" value="all" checked>
-      <label for="scrap-all">Scrap All</label>
+      <label for="scrap-all">Scrap Sub Components</label>
       <input type="radio" id="scrap-once" name="scrap-option" value="once">
-      <label for="scrap-once">Scrap Once</label>
+      <label for="scrap-once">Keep Sub Components</label>
     </div>
-  </div>
-
+  </div>  
+</div>
   <script>
-    const darkModeKey = 'darkMode';
+// Function to go back to the previous page
+function goBack() {
+  history.back(); // Navigate back to the previous page
+}
+  
+// Function to toggle the component list dropdown
+function toggleComponentList() {
+  const componentList = document.getElementById('component-list');
+  componentList.classList.toggle('show');
+}
 
-    // Function to toggle dark mode
-    function toggleDarkMode() {
-      const body = document.body;
-      const switchButton = document.querySelector('.switch');
+// Function to stop event propagation
+function stopPropagation(event) {
+  event.stopPropagation();
+}
 
-      // Toggle dark mode class on body
-      body.classList.toggle('dark-mode');
-      // Toggle switch-on class on switch button
-      switchButton.classList.toggle('switch-on');
+// Function to filter the components based on the search input
+function filterComponents() {
+  const searchInput = document.getElementById('component-search');
+  const filterValue = searchInput.value.toLowerCase();
+  const componentOptions = document.querySelectorAll('.component-option');
 
-      // Check if dark mode is active
-      const isDarkMode = body.classList.contains('dark-mode');
+  componentOptions.forEach(option => {
+    const componentText = option.textContent.toLowerCase();
+    const shouldDisplay = componentText.includes(filterValue);
+    option.style.display = shouldDisplay ? 'flex' : 'none';
+  });
+}
 
-      // Save user's preference to localStorage
-      localStorage.setItem(darkModeKey, isDarkMode);
+function addComponent(componentName) {
+  const componentList = document.querySelector('.component-grid');
+  
+  // Create the new component element
+  const component = document.createElement('div');
+  component.classList.add('component');
+  
+  // Create the image element
+  const image = document.createElement('img');
+  image.src = `./icon/${componentName.toLowerCase().replace(/ /g, '')}.png`;
+  image.alt = componentName;
+  component.appendChild(image);
+  
+  // Create the component name element
+  const componentNameSpan = document.createElement('span');
+  componentNameSpan.classList.add('component-name');
+  componentNameSpan.textContent = componentName;
+  component.appendChild(componentNameSpan);
+  
+  // Create the input element
+  const input = document.createElement('input');
+  input.type = 'number';
+  input.value = '';
+  input.min = '0';
+  input.placeholder = '0';
+  input.onchange = calculateResult;
+  component.appendChild(input);
+  
+  // Append the new component to the component list
+  componentList.appendChild(component);
+  
+  // Calculate the height for component grid
+  // You may adjust the '100' based on the actual height of your components and the gap between rows.
+  const rows = Math.ceil(componentList.childElementCount / 8);
+  componentList.style.height = `${rows * 135}px`; 
+
+  toggleComponentList();
+}
+
+// Close the component list dropdown when clicking outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.add-component-button')) {
+    const componentList = document.getElementById('component-list');
+    if (componentList.classList.contains('show')) {
+      componentList.classList.remove('show');
+    }
+  }
+};
+
+        const darkModeKey = 'darkMode';
+
+// Function to toggle dark mode
+function toggleDarkMode() {
+    const body = document.body;
+    const switchButton = document.querySelector('.switch');
+
+    // Toggle dark mode class on body
+    body.classList.toggle('dark-mode');
+    // Toggle switch-on class on switch button
+    switchButton.classList.toggle('switch-on');
+
+    // Check if dark mode is active
+    const isDarkMode = body.classList.contains('dark-mode');
+
+    // Toggle the icons based on dark mode state
+    const moonIcon = switchButton.querySelector('.fa-moon');
+    const sunIcon = switchButton.querySelector('.fa-sun');
+
+    if (isDarkMode) {
+        moonIcon.style.display = 'block';
+        sunIcon.style.display = 'none';
+    } else {
+        moonIcon.style.display = 'none';
+        sunIcon.style.display = 'block';
     }
 
-    // Check if user has a saved preference
+    // Save user's preference to localStorage
+    localStorage.setItem(darkModeKey, isDarkMode);
+}
+
+// Function to apply the appropriate icon based on dark mode preference
+function applyDarkModePreference() {
+    const body = document.body;
+    const switchButton = document.querySelector('.switch');
+    const moonIcon = switchButton.querySelector('.fa-moon');
+    const sunIcon = switchButton.querySelector('.fa-sun');
+
     const savedDarkMode = localStorage.getItem(darkModeKey);
 
-    // Apply saved preference if available
     if (savedDarkMode === 'true') {
-      document.body.classList.add('dark-mode');
-      document.querySelector('.switch').classList.add('switch-on');
+        body.classList.add('dark-mode');
+        switchButton.classList.add('switch-on');
+        moonIcon.style.display = 'block';
+        sunIcon.style.display = 'none';
+    } else {
+        body.classList.remove('dark-mode');
+        switchButton.classList.remove('switch-on');
+        moonIcon.style.display = 'none';
+        sunIcon.style.display = 'block';
     }
+}
+
+// Check if user has a saved preference
+applyDarkModePreference();
 
     // Define the resource icons
     const resourceIcons = {
@@ -141,7 +284,9 @@
       'Tech Trash': './icon/techparts.png',
       'SMG Body': './icon/smgbody.png',
       'Metal Blade': './icon/Blade.png',
-      // Add more resource names and their respective icons here
+      'CCTV Camera': './icon/cctvcamera.png',
+      'Targeting Computer': './icon/targetingcomputer',
+      'Auto Turret': './icon/autoturret.png'
     };
 
     // Define the resource mappings
@@ -202,6 +347,18 @@
         { name: 'Scrap', amount: 2 },
         { name: 'Metal Fragments', amount: 15 },
       ],
+      'CCTV Camera': [
+        { name: 'Tech Trash', amount: 2 },
+        { name: 'High Quality Metal', amount: 2 },
+      ],
+      'Targeting Computer': [
+        { name: 'Tech Trash', amount: 3 },
+        { name: 'High Quality Metal', amount: 1},
+        { name: 'Metal Fragments', amount: 50 },
+      ],
+      'Auto Turret': [
+        { name: 'Tech Trash', amount: 3},
+      ]
     };
 
   // Function to calculate and display the result
@@ -289,6 +446,11 @@
 
   scrapAllOption.addEventListener('change', calculateResult);
   scrapOnceOption.addEventListener('change', calculateResult);
+
+          // Function to check if dark mode is active
+          function isDarkMode() {
+            return document.body.classList.contains('dark-mode');
+        }
 </script>
 
 </script>
