@@ -1,23 +1,124 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>Hello Deploy Now build with plain html</title>
-    <link rel="stylesheet" href="./main.css">
+    <link rel="stylesheet" type="text/css" href="MainCSS.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta charset="UTF-8">
+    <title>Rust Info & Calculators</title>
 </head>
-
 <body>
-    <div class="main">
-        <h1>
-            Hello Deploy Now build with plain html
-        </h1>
-        <div>
-            <a href="https://ionos.space/setup?repo=https://github.com/ionos-deploy-now/hello-plain-html"
-                target="_blank">
-                <img src="https://images.ionos.space/deploy-now-icons/deploy-to-ionos-btn.svg" />
-            </a>
+    <button id="dark-mode-btn" onclick="toggleDarkMode()">
+        <div class="switch">
+            <i class="fas fa-sun"></i>
+            <i class="fas fa-moon"></i>
+        </div>
+    </button>
+    <h1>Welcome To Rust Info & Calculators</h1>
+    <div class="dropdown" id="dropdown">
+        <span id="dropdown-label">
+            Select a calculator
+        </span>
+        <div class="dropdown-content" id="dropdown-content">
+            <a href="#" id="recycle-option"><img src="icon/Recycler_icon.png" alt="Scrap Icon" width="48" height="48"> Recycle Calculator</a>
+            <a href="#" id="fertilizer-option"><img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="48" height="48"> Fertilizer Calculator</a>
+            <a href="#" id="boom-option"><img src="icon/Explosives.png" alt="Boom Icon" width="48" height="48"> Boom Calculator (Under Development)</a>
+            <a href="#" id="berry-option"><img src="icon/Berry.png" alt="Berry Icon" width="48" height="48"> Berry Breeding (Under Development)</a>
         </div>
     </div>
-</body>
 
+    <script>
+        const darkModeKey = 'darkMode';
+
+        // Function to toggle dark mode
+        function toggleDarkMode() {
+            const body = document.body;
+            const switchButton = document.querySelector('.switch');
+
+            // Toggle dark mode class on body
+            body.classList.toggle('dark-mode');
+            // Toggle switch-on class on switch button
+            switchButton.classList.toggle('switch-on');
+
+            // Check if dark mode is active
+            const isDarkMode = body.classList.contains('dark-mode');
+
+            // Toggle the icons based on dark mode state
+            const moonIcon = switchButton.querySelector('.fa-moon');
+            const sunIcon = switchButton.querySelector('.fa-sun');
+
+            if (isDarkMode) {
+                moonIcon.style.display = 'block';
+                sunIcon.style.display = 'none';
+            } else {
+                moonIcon.style.display = 'none';
+                sunIcon.style.display = 'block';
+            }
+
+            // Save user's preference to localStorage
+            localStorage.setItem(darkModeKey, isDarkMode);
+        }
+
+        // Function to apply the appropriate icon based on dark mode preference
+        function applyDarkModePreference() {
+            const body = document.body;
+            const switchButton = document.querySelector('.switch');
+            const moonIcon = switchButton.querySelector('.fa-moon');
+            const sunIcon = switchButton.querySelector('.fa-sun');
+
+            const savedDarkMode = localStorage.getItem(darkModeKey);
+
+            if (savedDarkMode === 'true') {
+                body.classList.add('dark-mode');
+                switchButton.classList.add('switch-on');
+                moonIcon.style.display = 'block';
+                sunIcon.style.display = 'none';
+            } else {
+                body.classList.remove('dark-mode');
+                switchButton.classList.remove('switch-on');
+                moonIcon.style.display = 'none';
+                sunIcon.style.display = 'block';
+            }
+        }
+
+        // Check if user has a saved preference
+        applyDarkModePreference();
+
+        var dropdown = document.getElementById('dropdown');
+        var dropdownContent = document.getElementById('dropdown-content');
+        var selectedItem = document.getElementById('dropdown-label');
+
+        dropdown.onmouseenter = function() {
+            dropdownContent.style.display = 'block';
+        };
+
+        dropdown.onmouseleave = function() {
+            dropdownContent.style.display = 'none';
+        };
+
+        document.getElementById('fertilizer-option').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'FertilizerCalculator.html';
+        });
+
+        document.getElementById('recycle-option').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'RecycleComps.html';
+        });
+
+        document.getElementById('boom-option').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Boom Calculator is currently under development. Please try again later.');
+            dropdownContent.style.display = 'none';
+        });
+
+        document.getElementById('berry-option').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Berry Breeding is currently under development. Please try again later.');
+            dropdownContent.style.display = 'none';
+        });
+
+
+
+    </script>
+</body>
 </html>
