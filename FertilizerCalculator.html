@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Fertilizer Calculator</title>
+    <link rel="stylesheet" type="text/css" href="FertilizerCalculatorCSS.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <button id="dark-mode-btn" onclick="toggleDarkMode()">
+        <div class="switch">
+            <i class="fas fa-sun"></i>
+            <i class="fas fa-moon"></i>
+        </div>
+    </button>
+    <div class="header">
+        <img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="48" height="48">
+        <h1>Fertilizer Calculator</h1>
+    </div>
+    <!-- Add the back button -->
+    <button class="back-button" onclick="goBack()">Back</button>
+
+    <div class="input-container">
+        <h3>Enter the amount of Fertilizer:</h3>
+        <input type="text" id="fertilizer-input" placeholder="Enter amount" oninput="calculateScrap()" />
+        <div id="scrap-result"></div>
+    </div>
+
+    <!-- Add your JavaScript code for the fertilizer calculator -->
+    <script>
+        // Function to go back to the previous page
+        function goBack() {
+            history.back(); // Navigate back to the previous page
+        }
+
+        const darkModeKey = 'darkMode';
+
+        // Function to toggle dark mode
+        function toggleDarkMode() {
+            const body = document.body;
+            const switchButton = document.querySelector('.switch');
+
+            // Toggle dark mode class on body
+            body.classList.toggle('dark-mode');
+            // Toggle switch-on class on switch button
+            switchButton.classList.toggle('switch-on');
+
+            // Check if dark mode is active
+            const isDarkMode = body.classList.contains('dark-mode');
+
+            // Toggle the icons based on dark mode state
+            const moonIcon = switchButton.querySelector('.fa-moon');
+            const sunIcon = switchButton.querySelector('.fa-sun');
+
+            if (isDarkMode) {
+                moonIcon.style.display = 'block';
+                sunIcon.style.display = 'none';
+            } else {
+                moonIcon.style.display = 'none';
+                sunIcon.style.display = 'block';
+            }
+
+            // Save user's preference to localStorage
+            localStorage.setItem(darkModeKey, isDarkMode);
+        }
+
+        // Function to apply the appropriate icon based on dark mode preference
+        function applyDarkModePreference() {
+            const body = document.body;
+            const switchButton = document.querySelector('.switch');
+            const moonIcon = switchButton.querySelector('.fa-moon');
+            const sunIcon = switchButton.querySelector('.fa-sun');
+
+            const savedDarkMode = localStorage.getItem(darkModeKey);
+
+            if (savedDarkMode === 'true') {
+                body.classList.add('dark-mode');
+                switchButton.classList.add('switch-on');
+                moonIcon.style.display = 'block';
+                sunIcon.style.display = 'none';
+            } else {
+                body.classList.remove('dark-mode');
+                switchButton.classList.remove('switch-on');
+                moonIcon.style.display = 'none';
+                sunIcon.style.display = 'block';
+            }
+        }
+
+        // Check if user has a saved preference
+        applyDarkModePreference();
+
+        // Apply saved preference if available
+        const savedDarkMode = localStorage.getItem(darkModeKey);
+        if (savedDarkMode === 'true') {
+            document.body.classList.add('dark-mode');
+            document.querySelector('.switch').classList.add('switch-on');
+        }
+
+        // Function to calculate the amount of scrap based on fertilizer
+        function calculateScrap() {
+            const fertilizerInput = document.getElementById('fertilizer-input').value;
+            const fertilizerAmount = parseInt(fertilizerInput, 10);
+            const scrapResult = document.getElementById('scrap-result');
+
+            if (!isNaN(fertilizerAmount) && fertilizerAmount >= 0) {
+                const scrapAmount = Math.floor(fertilizerAmount / 2) * 3;
+                const scrapOutput = isDarkMode() ? `<img src="icon/Scrap.png" alt="Scrap Icon" width="48" height="48"> Scrap: ${scrapAmount}` : `<img src="icon/Scrap.png" alt="Scrap Icon" width="48" height="48"> Scrap: ${scrapAmount}`;
+                scrapResult.innerHTML = `<span class="scrap-output">${scrapOutput}</span>`;
+            } else {
+                scrapResult.textContent = '';
+            }
+        }
+
+        // Function to check if dark mode is active
+        function isDarkMode() {
+            return document.body.classList.contains('dark-mode');
+        }
+    </script>
+
+</body>
+</html>
