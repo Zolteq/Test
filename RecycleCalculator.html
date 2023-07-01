@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" type="text/css" href="RecycleCalculatorCSS.css">
+  <link rel="stylesheet" type="text/css" href="RecycleCSS.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
@@ -357,9 +357,34 @@ applyDarkModePreference();
         { name: 'Metal Fragments', amount: 50 },
       ],
       'Auto Turret': [
-        { name: 'Tech Trash', amount: 3},
+        { name: 'Targeting Computer', amount: '50%' },
+        { name: 'CCTV Camera', amount: '50%' },
       ]
     };
+
+
+// Function to get the icon for a resource
+function getIcon(resourceName) {
+  // split the resource name into words
+  const words = resourceName.split(' ');
+
+  // If there is a percentage, the actual name starts from the second word
+  if (words[0].endsWith('%')) {
+    // Remove the percentage part
+    words.shift();
+  }
+
+  // Join the remaining words to form the actual name
+  const name = words.join(' ');
+
+  // Check if resourceIcons has this name as a key
+  if (resourceIcons.hasOwnProperty(name)) {
+    return resourceIcons[name];
+  } else {
+    // If the name isn't found in resourceIcons, return a default or error image
+    return "path/to/default/image.png";
+  }
+}
 
   // Function to calculate and display the result
   function calculateResult() {
@@ -384,29 +409,40 @@ applyDarkModePreference();
     });
 
     function calculateResources(componentName, quantity, processedComponents = new Set()) {
-      if (!processedComponents.has(componentName) && resourceMappings.hasOwnProperty(componentName)) {
-        processedComponents.add(componentName);
-        const resources = resourceMappings[componentName];
+  if (!processedComponents.has(componentName) && resourceMappings.hasOwnProperty(componentName)) {
+    processedComponents.add(componentName);
+    const resources = resourceMappings[componentName];
 
-        resources.forEach(resource => {
-          const { name, amount } = resource;
-          const totalAmount = quantity * amount;
+    resources.forEach(resource => {
+      const { name, amount } = resource;
 
-          if (totalAmount > 0) {
-            if (totalResources.hasOwnProperty(name)) {
-              totalResources[name] += totalAmount;
-            } else {
-              totalResources[name] = totalAmount;
-            }
+      if (typeof amount === "string" && amount.endsWith("%")) {
+        // Create a string resource in totalResources
+        const percentageResource = `${amount} ${name}`;
+        if (!totalResources.hasOwnProperty(percentageResource)) {
+          totalResources[percentageResource] = quantity;
+        } else {
+          totalResources[percentageResource] += quantity;
+        }
+      } else {
+        const totalAmount = quantity * amount;
 
-            // Check if the resource is another component and if "Scrap All" option is selected
-            if (resourceMappings.hasOwnProperty(name) && scrapAllOption) {
-              calculateResources(name, totalAmount, processedComponents);
-            }
+        if (totalAmount > 0) {
+          if (totalResources.hasOwnProperty(name)) {
+            totalResources[name] += totalAmount;
+          } else {
+            totalResources[name] = totalAmount;
           }
-        });
+
+          // Check if the resource is another component and if "Scrap All" option is selected
+          if (resourceMappings.hasOwnProperty(name) && scrapAllOption) {
+            calculateResources(name, totalAmount, processedComponents);
+          }
+        }
       }
-    }
+    });
+  }
+}
 
     // Display the total resources
     Object.entries(totalResources).forEach(([name, amount]) => {
@@ -418,9 +454,11 @@ applyDarkModePreference();
 
       // Create the icon element
       const icon = document.createElement('img');
-      icon.src = resourceIcons[name];
+      icon.src = getIcon(name);
       icon.alt = name;
       resourceItem.appendChild(icon);
+      
+      
 
       // Create the resource name element
       const resourceName = document.createElement('span');
