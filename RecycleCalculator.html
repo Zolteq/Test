@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" type="text/css" href="RecycleCalculatorCSS.css">
+  <link rel="stylesheet" type="text/css" href="RecycleCSS.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
@@ -32,6 +32,12 @@
               <img src="./icon/m249.png" alt="M249">
             </div>
             <span>M249</span>
+          </div>
+          <div class="component-option" onclick="addComponent('Tactical Gloves')">
+            <div class="icon-container">
+              <img src="./icon/tacticalgloves.png" alt="Tactical Gloves">
+            </div>
+            <span>Tactical Gloves</span>
           </div>
       </div>
       <div class="component-grid">
@@ -286,7 +292,8 @@ applyDarkModePreference();
       'Metal Blade': './icon/Blade.png',
       'CCTV Camera': './icon/cctvcamera.png',
       'Targeting Computer': './icon/targetingcomputer',
-      'Auto Turret': './icon/autoturret.png'
+      'Auto Turret': './icon/autoturret.png',
+      'Tactical Gloves': './icon/tacticalgloves.png'
     };
 
     // Define the resource mappings
@@ -359,6 +366,10 @@ applyDarkModePreference();
       'Auto Turret': [
         { name: 'Targeting Computer', amount: '50%' },
         { name: 'CCTV Camera', amount: '50%' },
+      ],
+      'Tactical Gloves': [
+        { name: 'Leather', amount: 10},
+        { name: 'Sewing Kit', amount: 5}
       ]
     };
 
