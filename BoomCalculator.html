@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="BoomCalculatorCSS.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+  <button id="dark-mode-btn" onclick="toggleDarkMode()">
+    <div class="switch">
+        <i class="fas fa-sun"></i>
+        <i class="fas fa-moon"></i>
+    </div>
+  </button>
+  <div class="header">
+    <img src="icon/Explosives.png" alt="Fertilizer Icon" width="48" height="48">
+    <h1>Boom Calculator</h1>
+  </div>
+  <button class="back-button" onclick="goBack()">Back</button>
+  <div class="container">
+    <div class="component-section"> <!-- Added this wrapper -->
+      <button class="add-component-button small-width" onclick="toggleComponentList()">Add Specific Items</button>
+      <div id="component-list" class="dropdown-content">
+          <input type="text" id="component-search" placeholder="Search..." onclick="stopPropagation(event)" oninput="filterComponents()">
+          <div class="component-option" onclick="addComponent('Satchel Charge')">
+            <div class="icon-container">
+              <img src="./icon/satchelcharge.png" alt="Auto Turret">
+            </div>
+            <span>Satchel Charge (Not Finished)</span>
+          </div>
+      </div>
+      <div class="component-grid">
+      <div class="component">
+        <img src="./icon/rocket.png" alt="Rocket">
+        <span class="component-name">Rocket</span>
+        <input type="number" value="" min="0" placeholder="0" oninput="calculateResult()">
+      </div>
+      <div class="component">
+        <img src="./icon/c4.png" alt="C4">
+        <span class="component-name">C4</span>
+        <input type="number" value="" min="0" placeholder="0" oninput="calculateResult()">
+      </div>
+      <div class="component">
+        <img src="./icon/explosive-ammo.png" alt="Explosive Ammo">
+        <span class="component-name">Explosive Ammo</span>
+        <input type="number" value="" min="0" placeholder="0" oninput="calculateResult()">
+      </div>
+      </div>
+    </div>
+    <div class="resources-section">
+     <div class="resources-label">
+        <h2>Resources Needed</h2>
+      </div>
+      <div id="result-container"></div>
+    </div>
+  </div>  
+</div>
+<script>
+// Function to go back to the previous page
+function goBack() {
+  history.back(); // Navigate back to the previous page
+}
+
+// Function to toggle the component list dropdown
+function toggleComponentList() {
+  const componentList = document.getElementById('component-list');
+  componentList.classList.toggle('show');
+}
+
+// Function to stop event propagation
+function stopPropagation(event) {
+  event.stopPropagation();
+}
+
+// Function to filter the components based on the search input
+function filterComponents() {
+  const searchInput = document.getElementById('component-search');
+  const filterValue = searchInput.value.toLowerCase();
+  const componentOptions = document.querySelectorAll('.component-option');
+
+  componentOptions.forEach(option => {
+    const componentText = option.textContent.toLowerCase();
+    const shouldDisplay = componentText.includes(filterValue);
+    option.style.display = shouldDisplay ? 'flex' : 'none';
+  });
+}
+
+function addComponent(componentName) {
+  const componentList = document.querySelector('.component-grid');
+  
+  // Create the new component element
+  const component = document.createElement('div');
+  component.classList.add('component');
+  
+  // Create the image element
+  const image = document.createElement('img');
+  image.src = `./icon/${componentName.toLowerCase().replace(/ /g, '')}.png`;
+  image.alt = componentName;
+  component.appendChild(image);
+  
+  // Create the component name element
+  const componentNameSpan = document.createElement('span');
+  componentNameSpan.classList.add('component-name');
+  componentNameSpan.textContent = componentName;
+  component.appendChild(componentNameSpan);
+  
+  // Create the input element
+  const input = document.createElement('input');
+  input.type = 'number';
+  input.value = '';
+  input.min = '0';
+  input.placeholder = '0';
+  input.oninput = calculateResult;
+  component.appendChild(input);
+  
+  // Append the new component to the component list
+  componentList.appendChild(component);
+  
+  // Calculate the height for component grid
+  // You may adjust the '100' based on the actual height of your components and the gap between rows.
+  const rows = Math.ceil(componentList.childElementCount / 8);
+  componentList.style.height = `${rows * 135}px`; 
+
+  toggleComponentList();
+}
+
+// Close the component list dropdown when clicking outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.add-component-button')) {
+    const componentList = document.getElementById('component-list');
+    if (componentList.classList.contains('show')) {
+      componentList.classList.remove('show');
+    }
+  }
+};
+
+const darkModeKey = 'darkMode';
+
+// Function to toggle dark mode
+function toggleDarkMode() {
+  const body = document.body;
+  const switchButton = document.querySelector('.switch');
+
+  // Toggle dark mode class on body
+  body.classList.toggle('dark-mode');
+  // Toggle switch-on class on switch button
+  switchButton.classList.toggle('switch-on');
+
+  // Check if dark mode is active
+  const isDarkMode = body.classList.contains('dark-mode');
+
+  // Toggle the icons based on dark mode state
+  const moonIcon = switchButton.querySelector('.fa-moon');
+  const sunIcon = switchButton.querySelector('.fa-sun');
+
+  if (isDarkMode) {
+    moonIcon.style.display = 'block';
+    sunIcon.style.display = 'none';
+  } else {
+    moonIcon.style.display = 'none';
+    sunIcon.style.display = 'block';
+  }
+
+  // Save user's preference to localStorage
+  localStorage.setItem(darkModeKey, isDarkMode);
+}
+
+// Function to apply the appropriate icon based on dark mode preference
+function applyDarkModePreference() {
+  const body = document.body;
+  const switchButton = document.querySelector('.switch');
+  const moonIcon = switchButton.querySelector('.fa-moon');
+  const sunIcon = switchButton.querySelector('.fa-sun');
+
+  const savedDarkMode = localStorage.getItem(darkModeKey);
+
+  if (savedDarkMode === 'true') {
+    body.classList.add('dark-mode');
+    switchButton.classList.add('switch-on');
+    moonIcon.style.display = 'block';
+    sunIcon.style.display = 'none';
+  } else {
+    body.classList.remove('dark-mode');
+    switchButton.classList.remove('switch-on');
+    moonIcon.style.display = 'none';
+    sunIcon.style.display = 'block';
+  }
+}
+
+// Check if user has a saved preference
+applyDarkModePreference();
+
+// Define the resource icons
+const resourceIcons = {
+  'Scrap': './icon/scrap.png',
+  'Metal Fragments': './icon/metalfragments.png',
+  'High Quality Metal': './icon/highqualitymetal.png',
+  'Rope': './icon/rope.png',
+  'Tarp': './icon/tarp.png',
+  'Cloth': './icon/cloth.png',
+  'Road Signs': './icon/roadsigns.png',
+  'Metal Spring': './icon/metalspring.png',
+  'Semi Automatic Body': './icon/semibody.png',
+  'Rifle Body': './icon/riflebody.png',
+  'Metal Pipe': './icon/metalpipe.png',
+  'Gears': './icon/gears.png',
+  'Empty Propane Tank': './icon/propanetank.png',
+  'Tech Trash': './icon/techparts.png',
+  'SMG Body': './icon/smgbody.png',
+  'Metal Blade': './icon/Blade.png',
+  'CCTV Camera': './icon/cctvcamera.png',
+  'Targeting Computer': './icon/targetingcomputer',
+  'Auto Turret': './icon/autoturret.png',
+  'Tactical Gloves': './icon/tacticalgloves.png',
+  'Leather': './icon/leather.png',
+  'Explosives': './icon/explosives.png',
+  'Gun Powder': './icon/gunpowder.png',
+  'Low Grade Fuel': './icon/lowgradefuel.png',
+  'Sulfur': './icon/sulfur.png',
+  'Charcoal': './icon/charcoal.png',
+  'Beancan Grenade': './icon/beancangrenade.png',
+  'Small Stash': './icon/smallstash.png'
+};
+
+// Define the resource mappings
+const resourceMappings = {
+  'Rocket': [
+    { name: 'Explosives', amount: 10},
+    { name: 'Gun Powder', amount: 150 },
+    { name: 'Metal Pipe', amount: 2 },
+  ],
+  'C4': [
+    { name: 'Explosives', amount: 20},
+    { name: 'Cloth', amount: 5},
+    { name: 'Tech Trash', amount: 2},
+  ],
+  'Explosive Ammo': [
+    { name: 'Metal Fragments', amount: 10},
+    { name: 'Gun Powder', amount: 20},
+    { name: 'Sulfur', amount: 10},
+  ],
+  'Satchel Charge': [
+    { name: 'Beancan Grenade', amount: 4},
+    { name: 'Small Stash', amount: 1},
+    { name: 'Rope', amount: 1},
+  ],
+  'Beancan Grenade': [
+    { name: 'Gun Powder', amount: 60},
+    { name: 'Metal Fragments', amount: 20},
+  ],
+  'Explosives': [
+    { name: 'Gun Powder', amount: 50 },
+    { name: 'Low Grade Fuel', amount: 3},
+    { name: 'Sulfur', amount: 10},
+    { name: 'Metal Fragments', amount: 10},
+  ],
+  'Gun Powder': [
+    { name: 'Charcoal', amount: 3},
+    { name: 'Sulfur', amount: 2},
+  ]
+};
+
+// Function to check if dark mode is active
+function isDarkMode() {
+  return document.body.classList.contains('dark-mode');
+}
+
+function calculateResult() {
+  const resourcesNeeded = {};
+
+  // Get the input elements for each component
+  const inputElements = document.querySelectorAll('.component input');
+
+  // Iterate over each input element
+  inputElements.forEach(input => {
+    const componentName = input.previousElementSibling.textContent;
+    const componentAmount = parseInt(input.value);
+
+    if (!isNaN(componentAmount) && componentAmount > 0) {
+      // Retrieve the resource mappings for the component
+      const componentResources = resourceMappings[componentName];
+
+      // Iterate over each resource required for the component
+      componentResources.forEach(resource => {
+        const resourceName = resource.name;
+        const resourceAmount = resource.amount * componentAmount;
+
+        // Check if the resource already exists in the resourcesNeeded object
+        if (resourcesNeeded.hasOwnProperty(resourceName)) {
+          // Increment the resource amount if it already exists
+          resourcesNeeded[resourceName] += resourceAmount;
+        } else {
+          // Add the resource to the resourcesNeeded object if it doesn't exist
+          resourcesNeeded[resourceName] = resourceAmount;
+        }
+      });
+    }
+  });
+
+  // Calculate the base resources required for explosives
+  if (resourcesNeeded.hasOwnProperty('Explosives')) {
+    const explosivesAmount = resourcesNeeded['Explosives'];
+
+    // Retrieve the resource mappings for explosives
+    const explosivesResources = resourceMappings['Explosives'];
+
+    // Iterate over each resource required for explosives
+    explosivesResources.forEach(resource => {
+      const resourceName = resource.name;
+      const resourceAmount = resource.amount * explosivesAmount;
+
+      // Check if the resource already exists in the resourcesNeeded object
+      if (resourcesNeeded.hasOwnProperty(resourceName)) {
+        // Increment the resource amount if it already exists
+        resourcesNeeded[resourceName] += resourceAmount;
+      } else {
+        // Add the resource to the resourcesNeeded object if it doesn't exist
+        resourcesNeeded[resourceName] = resourceAmount;
+      }
+    });
+
+    // Remove explosives from the resourcesNeeded object
+    delete resourcesNeeded['Explosives'];
+  }
+
+  if (resourcesNeeded.hasOwnProperty('Beancan Grenade')) {
+      const beancanAmount = resourcesNeeded['Beancan Grenade'];
+
+      const beancanResources = resourceMappings['Beancan Grenade'];
+      beancanResources.forEach(resource => {
+      const resourceName = resource.name;
+      const resourceAmount = resource.amount * beancanAmount;
+
+      // Check if the resource already exists in the resourcesNeeded object
+      if (resourcesNeeded.hasOwnProperty(resourceName)) {
+        // Increment the resource amount if it already exists
+        resourcesNeeded[resourceName] += resourceAmount;
+      } else {
+        // Add the resource to the resourcesNeeded object if it doesn't exist
+        resourcesNeeded[resourceName] = resourceAmount;
+      }
+    });
+    delete resourcesNeeded['Beancan Grenade'];
+  }
+
+  const gunpowderCraftings = resourcesNeeded['Gun Powder'] / 10
+  const gunpowderCraftingsTotal = resourcesNeeded['Gun Powder']
+
+
+
+
+  // Calculate the total amount of sulfur and charcoal needed for gun powder
+  if (resourcesNeeded.hasOwnProperty('Gun Powder')) {
+    const gunPowderAmount = resourcesNeeded['Gun Powder'];
+
+    // Calculate the resources needed to craft gun powder
+    const charcoalAmount = 3 * gunPowderAmount;
+    const sulfurAmount = 2 * gunPowderAmount;
+
+    // Add the additional resources to the resourcesNeeded object
+    if (resourcesNeeded.hasOwnProperty('Charcoal')) {
+      resourcesNeeded['Charcoal'] += charcoalAmount;
+    } else {
+      resourcesNeeded['Charcoal'] = charcoalAmount;
+    }
+
+    if (resourcesNeeded.hasOwnProperty('Sulfur')) {
+      resourcesNeeded['Sulfur'] += sulfurAmount;
+    } else {
+      resourcesNeeded['Sulfur'] = sulfurAmount;
+    }
+
+    // Remove gun powder from the resourcesNeeded object
+    delete resourcesNeeded['Gun Powder'];
+  }
+
+  // Convert the resourcesNeeded object into an array of arrays
+  const resourcesArray = Object.entries(resourcesNeeded);
+
+  // Define a custom sort function
+  function customSort(a, b) {
+    const order = ['Sulfur', 'Charcoal'];
+
+    // If both items are in the order array, sort them based on their order
+    if (order.includes(a[0]) && order.includes(b[0])) {
+      return order.indexOf(a[0]) - order.indexOf(b[0]);
+    }
+
+    // If only one item is in the order array, sort it before the other
+    if (order.includes(a[0])) {
+      return -1;
+    }
+    if (order.includes(b[0])) {
+      return 1;
+    }
+
+    // If neither item is in the order array, sort them based on their amount
+    return b[1] - a[1]; // For descending order
+  }
+
+  // Sort the resourcesArray using the custom sort function
+  resourcesArray.sort(customSort);
+
+  // Display the calculated resources in the result container
+  const resultContainer = document.getElementById('result-container');
+  resultContainer.innerHTML = '';
+
+  for (const [resourceName, resourceAmount] of resourcesArray) {
+    // Create the resource element
+    const resourceElement = document.createElement('div');
+    resourceElement.classList.add('resource');
+
+    // Create the resource icon element
+    const resourceIcon = document.createElement('img');
+    resourceIcon.src = resourceIcons[resourceName];
+    resourceIcon.alt = resourceName;
+    resourceElement.appendChild(resourceIcon);
+
+    // Create the resource name element
+    const resourceNameSpan = document.createElement('span');
+    resourceNameSpan.classList.add('resource-name');
+    resourceNameSpan.innerHTML = `${resourceName}:&nbsp;`;
+    resourceElement.appendChild(resourceNameSpan);
+
+    // Create the resource amount element
+    const resourceAmountSpan = document.createElement('span');
+    resourceAmountSpan.classList.add('resource-amount');
+    resourceAmountSpan.textContent = resourceAmount;
+    resourceElement.appendChild(resourceAmountSpan);
+
+    // Append the resource element to the result container
+    resultContainer.appendChild(resourceElement);
+  }
+    // Create Line Break
+    const lineBreak = document.createElement('br');
+    resultContainer.appendChild(lineBreak);
+
+    // Create the gun powder craftings text
+    const gunpowderAmountSpan = document.createElement('span');
+    gunpowderAmountSpan.classList.add('gunpowder-amount');
+    if (!gunpowderCraftings || isNaN(gunpowderCraftings)) {
+      gunpowderAmountSpan.textContent = "";
+    }else{
+      gunpowderAmountSpan.innerHTML = `You need to craft ${gunpowderCraftings}x Gun Powder to get the required ${gunpowderCraftingsTotal} Gun Powder for this craft!`;
+      gunpowderAmountSpan.style.fontSize = '18px'; // change this value as needed
+      gunpowderAmountSpan.style.fontWeight = 'bold';
+
+      resultContainer.appendChild(gunpowderAmountSpan);
+
+    }
+}
+
+  
+
+
+
+</script>
+</body>
+</html>

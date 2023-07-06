@@ -1,0 +1,439 @@
+#dark-mode-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #868484;
+    color: white;
+    padding: 10px 25px;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    overflow: hidden;
+    z-index: 2;
+  }
+  
+  .switch {
+    position: absolute;
+    top: 50%;
+    left: 1px;
+    width: 18px;
+    height: 18px;
+    background-color: #000000;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+    transform: translateY(-50%);
+  }
+  
+  .switch-on {
+    transform: translateY(-50%) translateX(165%);
+    background-color: #222;
+  }
+  
+  .dark-mode {
+    background-color: #222;
+    color: #000000;
+  }
+  
+  .switch i {
+    position: absolute;
+    top: 9.5%;
+    left: 4%;
+    transform: translateY(-0%);
+    font-size: 16px;
+    color: #ffffff;
+    transition: transform 0.3s ease;
+  }
+  
+  .switch-on i {
+    transform: translateY(0%) translateX(0%);
+    color: #e3e3e3;
+  }
+  
+  body {
+    display: flex;
+    flex-direction: column; /* Stacks elements vertically */
+    align-items: center;
+  }
+    
+    .container {
+      position: relative;
+    }
+    
+    .component-grid {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      /* Remove grid-template-rows and use grid-auto-rows to automatically create new rows */
+      grid-auto-rows: minmax(100px, auto); /* Adjust minimum row height as needed */
+      grid-gap: 20px;
+      justify-items: center;
+      margin-top: 115px;
+      align-content: start;
+    }
+    
+    .component {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 120px; /* Fixed height */
+      color: black;
+    }
+    
+    
+    .component img {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 5px;
+    }
+    
+    .component input {
+      width: 80px;
+      padding: 5px;
+      text-align: center;
+    }
+    
+    .component-name {
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    
+  
+  .dark-mode h2,h3 {
+      color: #fff;
+  }
+    
+  .resources-section {
+    margin-top: 50px;
+    position: relative;
+    width: 100%;
+    text-align: center;
+    color: black;
+  }
+  
+    .dark-mode .resources-section {
+      color: white;
+    }
+    
+    .resources-label {
+      text-align: center;
+    }
+    
+    .resource {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 5px;
+    }
+    .resource-amount {
+      font-weight: bold;
+    }
+    
+    .resource-item img {
+      width: 60px;
+      height: 60px;
+      margin-right: 10px;
+    }
+
+    .resource-item {
+      width: 60px;
+      height: 60px;
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+
+    .gunpowder {
+      font-weight: bold;
+    }
+
+    .resource img {
+      width: 60px;
+      height: 60px;
+      margin-right: 10px;
+    }
+
+    .explosives-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 5px;
+    }
+
+    .explosives-item span {
+        font-weight: bold;
+    }
+
+    .amount-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 5px;
+    }
+
+    .amount-item span {
+        font-size: 18px;
+    }
+
+    
+    .resource-name {
+      font-weight: bold;
+    }
+    
+  .component input[type="number"]::-webkit-inner-spin-button,
+  .component input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  .container {
+      position: fixed;
+    }
+    
+  .scrap-options {
+    position: fixed;
+    top: 90px;
+    left: 920px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+    background-color: transparent;
+    margin-top:  0px;
+  }
+  
+  .dark-mode h1{
+    color:  white;
+  }
+  
+  .dark-mode .scrap-options {
+    color: white;
+  }
+  
+  .dark-mode .component {
+    color: white;
+  }
+  
+    
+  .scrap-options label {
+    cursor: pointer;
+  }
+    
+  .scrap-options input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #999;
+    border-radius: 50%;
+    outline: none;
+    position: relative;
+    transition: border-color 0.3s ease;
+  }
+    
+  .scrap-options input[type="radio"]:checked {
+    border-color: #0066ff;
+  }
+    
+  .scrap-options input[type="radio"]::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #0066ff;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+    
+  .scrap-options input[type="radio"]:checked::after {
+      opacity: 1;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Add this line to center horizontally */
+    position: fixed;
+    top: -1.2%;
+    left: 0;
+    right: 0;
+    background-color: transparent;
+    font-family: Arial, sans-serif;
+    padding: 10px;
+    color: black;
+    margin-bottom: 0px;
+  }
+    
+  .component-header h3 {
+    margin: 0;
+  }
+  
+  .component-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: 10%;
+    left: -48%;
+    right: 0;
+    height: 50px; /* Adjust the height as needed */
+    background-color: transparent;
+    font-family: Arial, sans-serif;
+    padding: 10px;
+    color: black;
+    margin-bottom: 0;
+  }
+  
+  
+  .header img {
+      margin-right: 10px;
+  }
+  
+  button.back-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .component-search-container {
+    position: absolute;
+    top: calc(100% + 10px); /* Adjust the top offset as needed */
+    left: -45%;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px; /* Adjust the margin as needed */
+  }
+  
+  .dropdown-option {
+    display: flex;
+    align-items: center;
+  }
+  
+  .dropdown-icon {
+    margin-right: 8px;
+  }
+  
+  #component-list {
+    max-height: 200px; /* Adjust according to the height of your items */
+    overflow-y: auto;
+  }
+  
+  .component-list select {
+    appearance: none;
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: none;
+    background-color: #f2f2f2;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+  
+  .component-list button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .component-list button:hover {
+    background-color: #45a049;
+  }
+  
+  
+  .component-option {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    height: 50px;
+  }
+  
+  .component-option:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: fixed;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-top: none;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    top: 15.5%;
+    left: 0.8%;
+    width: 170px;
+  }
+  
+  .show {
+    display: block;
+  }
+  
+  .component-option .icon-container img {
+    width: 50px;
+    height: 50px;
+    margin-right: 8px;
+  }
+  
+  .small-width {
+    width: 160px; /* Adjust the width as per your preference */
+    font-weight: bold;
+  }
+  
+  #component-search {
+    width: 166px;
+    padding: 8px;
+    font-size: 16px;
+    position: relative;
+    border: none;
+    border-radius: 4px;
+    background-color: #f2f2f2;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .component-option .component-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex-shrink: 1;
+    width: 100%;
+  }
+  
+  .component-option .icon-container {
+    margin-right: 8px;
+  }
+  
+  .add-component-button {
+    position: fixed;
+    top: 100px;
+    left: 16.8px;
+    padding: 10px 20px;
+    width: 172px;
+    background-color: #FF5F1F;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  
