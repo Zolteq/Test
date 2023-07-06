@@ -22,7 +22,7 @@
         <div class="dropdown-content" id="dropdown-content">
             <a href="#" id="recycle-option"><img src="icon/Recycler_icon.png" alt="Scrap Icon" width="48" height="48"> Recycle Calculator</a>
             <a href="#" id="fertilizer-option"><img src="icon/Fertilizer.png" alt="Fertilizer Icon" width="48" height="48"> Fertilizer Calculator</a>
-            <a href="#" id="boom-option"><img src="icon/Explosives.png" alt="Boom Icon" width="48" height="48"> Boom Calculator (Under Development)</a>
+            <a href="#" id="boom-option"><img src="icon/Explosives.png" alt="Boom Icon" width="48" height="48"> Boom Calculator</a>
             <a href="#" id="berry-option"><img src="icon/Berry.png" alt="Berry Icon" width="48" height="48"> Berry Breeding (Under Development)</a>
         </div>
     </div>
@@ -96,20 +96,30 @@
             dropdownContent.style.display = 'none';
         };
 
+        // Function to handle calculator option click
+        function handleCalculatorOptionClick(url) {
+            // Modify the URL here before navigating
+            var modifiedUrl = 'http://Zolteq.com/' + url; // Replace "example.com" with your desired URL
+
+            // Navigate to the modified URL
+            window.location.href = modifiedUrl;
+        }
+        
+
+        // Add event listeners to calculator options
         document.getElementById('fertilizer-option').addEventListener('click', function(e) {
             e.preventDefault();
-            window.location.href = 'FertilizerCalculator.html';
+            handleCalculatorOptionClick('FertilizerCalculator');
         });
 
         document.getElementById('recycle-option').addEventListener('click', function(e) {
             e.preventDefault();
-            window.location.href = 'RecycleCalculator.html';
+            handleCalculatorOptionClick('RecycleCalculator');
         });
 
         document.getElementById('boom-option').addEventListener('click', function(e) {
             e.preventDefault();
-            alert('Boom Calculator is currently under development. Please try again later.');
-            dropdownContent.style.display = 'none';
+            handleCalculatorOptionClick('BoomCalculator');
         });
 
         document.getElementById('berry-option').addEventListener('click', function(e) {
