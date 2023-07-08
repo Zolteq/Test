@@ -40,6 +40,12 @@
             </div>
             <span>Tactical Gloves</span>
           </div>
+          <div class="component-option" onclick="addComponent('Electric Fuse')">
+            <div class="icon-container">
+              <img src="./icon/electricfuse.png" alt="Electric Fuse">
+            </div>
+            <span>Electric Fuse</span>
+          </div>
       </div>
       <div class="component-grid">
       <div class="component">
@@ -295,7 +301,8 @@ applyDarkModePreference();
       'Targeting Computer': './icon/targetingcomputer',
       'Auto Turret': './icon/autoturret.png',
       'Tactical Gloves': './icon/tacticalgloves.png',
-      'Leather': './icon/leather.png'
+      'Leather': './icon/leather.png',
+      'Electric Fuse': './icon/fuse.png'
     };
 
     // Define the resource mappings
@@ -371,7 +378,10 @@ applyDarkModePreference();
       ],
       'Tactical Gloves': [
         { name: 'Leather', amount: 10},
-        { name: 'Sewing Kit', amount: 5}
+        { name: 'Sewing Kit', amount: 5},
+      ],
+      'Electric Fuse': [
+        { name: 'Scrap', amount: 20},
       ]
     };
 
